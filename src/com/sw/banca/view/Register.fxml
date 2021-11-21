@@ -8,9 +8,9 @@
     <children>
         <TextField fx:id="cnpTextField" layoutX="218.0" layoutY="242.0" prefHeight="41.0" prefWidth="244.0" />
         <PasswordField fx:id="pinTextField" layoutX="218.0" layoutY="339.0" prefHeight="41.0" prefWidth="244.0" />
-        <Label alignment="CENTER" layoutX="126.0" layoutY="33.0" prefHeight="66.0" prefWidth="428.0" text="Welcome to my bank">
+        <Label alignment="CENTER" layoutX="136.0" layoutY="31.0" prefHeight="66.0" prefWidth="428.0" text="Welcome ">
             <font>
-                <Font size="25.0" />
+                <Font size="36.0" />
             </font>
         </Label>
         <Button fx:id="registerButton" layoutX="282.0" layoutY="450.0" mnemonicParsing="false" onAction="#register" prefHeight="41.0" prefWidth="116.0" text="Register" />

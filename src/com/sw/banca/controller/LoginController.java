@@ -39,9 +39,11 @@ public class LoginController {
 
             if(areCredentialsCorrect(client))
             {
-                System.out.println("Server: client " + client.getCnp() + " has successfully logged in");
+                System.out.println("Log: client " + client.getCnp() + " has successfully logged in");
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/UserMenu.fxml"));
                 root = loader.load();
+                //
+
                 //
                 stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
                 scene = new Scene(root);
@@ -56,11 +58,11 @@ public class LoginController {
             return true;
         }
         if(!cnp.isValid()){
-            statusLabel.setText("CNP is not valid. Format is XXX, numbers only.");
+            setStatusLabel("CNP is not valid. Format is XXX, numbers only.", Color.RED);
         }
         else
         {
-            statusLabel.setText("PIN is not valid. Format is XXXX, numbers only.");
+            setStatusLabel("PIN is not valid. Format is XXXX, numbers only.", Color.RED);
         }
         return false;
     }
@@ -71,7 +73,7 @@ public class LoginController {
         }
         else
         {
-            statusLabel.setText("Invalid credentials. Please try again.");
+            setStatusLabel("Invalid credentials. Please try again.", Color.RED);
             return false;
         }
     }
