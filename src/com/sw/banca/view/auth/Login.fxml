@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sw.banca.controller.auth.LoginController">
+   <children>
+      <TextField fx:id="cnpTextField" layoutX="218.0" layoutY="242.0" prefHeight="41.0" prefWidth="244.0" />
+      <PasswordField fx:id="pinTextField" layoutX="218.0" layoutY="339.0" prefHeight="41.0" prefWidth="244.0" />
+      <Label alignment="CENTER" layoutX="136.0" layoutY="31.0" prefHeight="66.0" prefWidth="428.0" text="Welcome ">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Button fx:id="loginButton" layoutX="282.0" layoutY="450.0" mnemonicParsing="false" onAction="#login" prefHeight="41.0" prefWidth="116.0" text="Log in" />
+      <Button fx:id="goToRegisterButton" layoutX="490.0" layoutY="645.0" mnemonicParsing="false" onAction="#register" prefHeight="41.0" prefWidth="196.0" text="Don't have an account?" underline="true" />
+      <Label layoutX="218.0" layoutY="219.0" prefHeight="23.0" prefWidth="38.0" text="CNP" />
+      <Label layoutX="218.0" layoutY="322.0" text="PIN" />
+      <Label fx:id="statusLabel" alignment="CENTER" layoutX="218.0" layoutY="158.0" prefHeight="41.0" prefWidth="244.0" textFill="#f24f4f" wrapText="true" />
+   </children>
+</AnchorPane>

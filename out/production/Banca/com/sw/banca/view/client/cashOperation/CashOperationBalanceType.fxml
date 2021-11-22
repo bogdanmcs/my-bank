@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sw.banca.controller.client.cashOperation.CashOperationBalanceTypeController">
+   <children>
+       <Button fx:id="goBackButton" alignment="CENTER" layoutX="205.0" layoutY="593.0" mnemonicParsing="false" onAction="#goBack" prefHeight="70.0" prefWidth="263.0" style="-fx-background-color: indianred;" text="Cancel">
+           <font>
+               <Font size="20.0" />
+           </font></Button>
+       <Button fx:id="selectRonAccountButton" alignment="CENTER" layoutX="232.0" layoutY="332.0" mnemonicParsing="false" onAction="#selectRonBalance" prefHeight="70.0" prefWidth="210.0" text="RON">
+           <font>
+               <Font size="20.0" />
+           </font></Button>
+      <Button fx:id="selectEuroAccountbutton" alignment="CENTER" layoutX="232.0" layoutY="221.0" mnemonicParsing="false" onAction="#selectEuroBalance" prefHeight="70.0" prefWidth="210.0" text="EURO">
+         <font>
+            <Font size="20.0" />
+         </font></Button>
+      <Label fx:id="infoLabel" alignment="CENTER" layoutX="102.0" layoutY="32.0" prefHeight="102.0" prefWidth="497.0" text="Please select the balance account from which you would like to withdraw." textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sw.banca.controller.client.cashOperation.CashOperationResult">
+   <children>
+       <Button fx:id="proceedButton" alignment="CENTER" layoutX="219.0" layoutY="594.0" mnemonicParsing="false" onAction="#returnToUserMenu" prefHeight="70.0" prefWidth="263.0" style="-fx-background-color: green;" text="OK">
+           <font>
+               <Font size="20.0" />
+           </font></Button>
+      <Label fx:id="resultLabel" alignment="CENTER" layoutX="124.0" layoutY="134.0" prefHeight="228.0" prefWidth="453.0" style="-fx-background-color: lightgrey; -fx-background-radius: 20;" wrapText="true">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

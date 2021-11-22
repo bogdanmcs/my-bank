@@ -13,7 +13,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("view/Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("view/auth/Login.fxml"));
         Scene scene = new Scene(root, 700, 700, Color.LIGHTBLUE);
         Image icon = new Image("res/bank.png");
 

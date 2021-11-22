@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sw.banca.controller.client.cashOperation.CashOperationConfirmationController">
+   <children>
+       <Button fx:id="goBackButton" alignment="CENTER" layoutX="38.0" layoutY="594.0" mnemonicParsing="false" onAction="#goBack" prefHeight="70.0" prefWidth="263.0" style="-fx-background-color: indianred;" text="No">
+           <font>
+               <Font size="20.0" />
+           </font></Button>
+       <Button fx:id="proceedButton" alignment="CENTER" layoutX="398.0" layoutY="594.0" mnemonicParsing="false" onAction="#proceed" prefHeight="70.0" prefWidth="263.0" style="-fx-background-color: green;" text="Yes">
+           <font>
+               <Font size="20.0" />
+           </font></Button>
+      <Label alignment="CENTER" layoutX="169.0" layoutY="240.0" prefHeight="96.0" prefWidth="363.0" text="Are you sure?">
+         <font>
+            <Font size="30.0" />
+         </font></Label>
+   </children>
+</AnchorPane>

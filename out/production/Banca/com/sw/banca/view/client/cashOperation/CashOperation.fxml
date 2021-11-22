@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="balanceTypeButton" prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sw.banca.controller.client.cashOperation.CashOperationController">
+   <children>
+      <Label fx:id="infoLabel" alignment="CENTER" layoutX="99.0" layoutY="31.0" prefHeight="60.0" prefWidth="503.0" text="Please select the amount that you would like to deposit." wrapText="true">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
+      <Button fx:id="addAmount1Button" layoutX="122.0" layoutY="165.0" mnemonicParsing="false" onAction="#addAmount1" prefHeight="60.0" prefWidth="140.0" text="1" />
+      <Button fx:id="addAmount5Button" layoutX="122.0" layoutY="280.0" mnemonicParsing="false" onAction="#addAmount5" prefHeight="60.0" prefWidth="140.0" text="5" />
+      <Button fx:id="addAmount10Button" layoutX="122.0" layoutY="396.0" mnemonicParsing="false" onAction="#addAmount10" prefHeight="60.0" prefWidth="140.0" text="10" />
+      <Button fx:id="addAmount50Button" layoutX="404.0" layoutY="165.0" mnemonicParsing="false" onAction="#addAmount50" prefHeight="60.0" prefWidth="140.0" text="50" />
+      <TextField fx:id="saveAmountTextField" layoutX="404.0" layoutY="397.0" prefHeight="59.0" prefWidth="200.0" />
+      <Button fx:id="addAmount100Button" layoutX="404.0" layoutY="280.0" mnemonicParsing="false" onAction="#addAmount100" prefHeight="60.0" prefWidth="140.0" text="100" />
+      <Label layoutX="404.0" layoutY="379.0" text="Custom amount" />
+      <Button fx:id="goBackButton" alignment="CENTER" layoutX="38.0" layoutY="594.0" mnemonicParsing="false" onAction="#goBack" prefHeight="70.0" prefWidth="263.0" style="-fx-background-color: indianred;" text="Go back">
+         <font>
+            <Font size="20.0" />
+         </font></Button>
+      <Button fx:id="proceedButton" alignment="CENTER" layoutX="398.0" layoutY="594.0" mnemonicParsing="false" onAction="#proceed" prefHeight="70.0" prefWidth="263.0" style="-fx-background-color: green;" text="Proceed">
+         <font>
+            <Font size="20.0" />
+         </font></Button>
+      <Label layoutX="198.0" layoutY="521.0" prefHeight="31.0" prefWidth="57.0" text="Total">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
+      <Label fx:id="totalAmountLabel" alignment="CENTER" layoutX="270.0" layoutY="513.0" prefHeight="45.0" prefWidth="155.0" text="0">
+         <font>
+            <Font size="22.0" />
+         </font></Label>
+      <Button fx:id="addAmountCustomButton" layoutX="610.0" layoutY="397.0" mnemonicParsing="false" onAction="#addAmountCustom" prefHeight="59.0" prefWidth="64.0" text="Save" />
+      <Label fx:id="balanceTypeLabel" layoutX="431.0" layoutY="513.0" prefHeight="45.0" prefWidth="99.0">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="errorLabel" alignment="CENTER" layoutX="198.0" layoutY="91.0" prefHeight="38.0" prefWidth="263.0" textFill="#eb0b0b">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

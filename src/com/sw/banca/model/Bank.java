@@ -1,6 +1,8 @@
 package com.sw.banca.model;
 
-import com.sw.banca.misc.AccountBalance;
+import com.sw.banca.misc.*;
+import com.sw.banca.model.client.Client;
+import com.sw.banca.model.client.Clientable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +42,7 @@ public final class Bank implements Clientable {
 
     public boolean isRegistered(Client client){
         for(Client c: clientList){
-            if(c.getCnp() == client.getCnp()){
+            if(c.getCnp() == client.getCnp() && c.getPin() == client.getPin()){
                 return true;
             }
         }
@@ -63,20 +65,57 @@ public final class Bank implements Clientable {
     }
 
     @Override
-    public void withdrawCash(UserSession userSession) {
-
+    public ServerResponse withdrawCash(UserSession userSession, Transaction transaction) {
+        for(Client c: clientList){
+            if(c.getCnp() == userSession.getCnp() && c.getPin() == userSession.getPin()){
+                if(transaction.getBalanceType() == BalanceType.EURO){
+                    double currentEuroBalance = c.getEuroBalance();
+                    if(currentEuroBalance < transaction.getTotalAmount()){
+                        return ServerResponse.INSUFFICIENT_FUNDS;
+                    } else {
+                        c.setEuroBalance(currentEuroBalance - transaction.getTotalAmount());
+                        return ServerResponse.OPERATION_SUCCESSFUL;
+                    }
+                } else if(transaction.getBalanceType() == BalanceType.RON){
+                    double currentRonBalance = c.getRonBalance();
+                    if(currentRonBalance < transaction.getTotalAmount()){
+                        return ServerResponse.INSUFFICIENT_FUNDS;
+                    } else {
+                        c.setRonBalance(currentRonBalance - transaction.getTotalAmount());
+                        return ServerResponse.OPERATION_SUCCESSFUL;
+                    }
+                } else {
+                    return ServerResponse.UNEXPECTED_ERROR;
+                }
+            }
+        }
+        return ServerResponse.CLIENT_NOT_FOUND;
     }
 
     @Override
-    public void depositCash(UserSession userSession) {
-
+    public ServerResponse depositCash(UserSession userSession, Transaction transaction) {
+        for(Client c: clientList){
+            if(c.getCnp() == userSession.getCnp() && c.getPin() == userSession.getPin()){
+                if(transaction.getBalanceType() == BalanceType.EURO){
+                    double currentEuroBalance = c.getEuroBalance();
+                    c.setEuroBalance(currentEuroBalance + transaction.getTotalAmount());
+                } else if(transaction.getBalanceType() == BalanceType.RON){
+                    double currentRonBalance = c.getRonBalance();
+                    c.setRonBalance(currentRonBalance + transaction.getTotalAmount());
+                } else {
+                    return ServerResponse.UNEXPECTED_ERROR;
+                }
+                return ServerResponse.OPERATION_SUCCESSFUL;
+            }
+        }
+        return ServerResponse.CLIENT_NOT_FOUND;
     }
 
     @Override
     public AccountBalance getBalanceQuery(UserSession userSession) {
         for(Client c: clientList){
             if(c.getCnp() == userSession.getCnp() && c.getPin() == userSession.getPin()){
-                return new AccountBalance(c.getSoldContEuro(), c.getSoldContRon());
+                return new AccountBalance(c.getEuroBalance(), c.getRonBalance());
             }
         }
         return new AccountBalance(-1, -1);

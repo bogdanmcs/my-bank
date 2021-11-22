@@ -1,5 +1,7 @@
 package com.sw.banca.model;
 
+import com.sw.banca.misc.BalanceType;
+
 public final class UserSession {
 
     private static UserSession instance;
@@ -30,6 +32,10 @@ public final class UserSession {
 
     public void setPin(int pin) {
         this.pin = pin;
+    }
+
+    public String getInfo(){
+        return "( " + cnp + ", " + pin + " )";
     }
 
     public void clearSession() {
