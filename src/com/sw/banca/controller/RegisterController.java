@@ -40,7 +40,14 @@ public class RegisterController {
             if(!doesClientAlreadyExist(client))
             {
                 Bank.addClient(client);
-                login(actionEvent);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Login.fxml"));
+                root = loader.load();
+                LoginController loginController = loader.getController();
+                loginController.setStatusLabel("Registration was successful. You can now log in.", Color.GREEN);
+                stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
             }
         }
     }
@@ -71,10 +78,7 @@ public class RegisterController {
     }
 
     public void login(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Login.fxml"));
-        root = loader.load();
-        LoginController loginController = loader.getController();
-        loginController.setStatusLabel("Registration was successful. You can now log in.", Color.GREEN);
+        root = FXMLLoader.load(getClass().getResource("../view/Login.fxml"));
         stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

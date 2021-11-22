@@ -5,7 +5,7 @@ import java.util.List;
 
 public final class Bank {
     private static boolean INIT = false;
-    private static final List<Client> clientList = new ArrayList<>();
+    private static List<Client> clientList = new ArrayList<>();
 
     private Bank(){
         throw new UnsupportedOperationException();
@@ -41,6 +41,24 @@ public final class Bank {
         }
         return false;
     }
+
+    public static void deleteClient(int cnp, int pin){
+        for(Client c: clientList){
+            if(c.getCnp() == cnp && c.getPin() == pin){
+                clientList.remove(c);
+                break;
+            }
+        }
+    }
+
+//    public static void deleteClient(int cnp, int pin){
+//        for(Client c: clientList){
+//            if(c.getCnp() == cnp && c.getPin() == pin){
+//                clientList.remove(c);
+//                break;
+//            }
+//        }
+//    }
 
     public static void viewClients(){
         for(Client c: clientList){

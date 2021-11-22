@@ -4,6 +4,7 @@ import com.sw.banca.misc.Cnp;
 import com.sw.banca.misc.Pin;
 import com.sw.banca.model.Bank;
 import com.sw.banca.model.Client;
+import com.sw.banca.model.UserSession;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,22 +36,29 @@ public class LoginController {
 
         if(areValid(cnp, pin))
         {
-            Client client = new Client(Integer.parseInt(cnp.getCnpCode()), Integer.parseInt(pin.getPinCode()));
+            int cnpToInt = Integer.parseInt(cnp.getCnpCode());
+            int pinToInt = Integer.parseInt(pin.getPinCode());
+            Client client = new Client(cnpToInt, pinToInt);
 
             if(areCredentialsCorrect(client))
             {
                 System.out.println("Log: client " + client.getCnp() + " has successfully logged in");
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/UserMenu.fxml"));
-                root = loader.load();
-                //
-
-                //
-                stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-                scene = new Scene(root);
-                stage.setScene(scene);
-                stage.show();
+                UserSession.getInstance().setCnp(cnpToInt);
+                UserSession.getInstance().setPin(pinToInt);
+                loadUserMenu(actionEvent);
             }
         }
+    }
+
+    public void loadUserMenu(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/UserMenu.fxml"));
+        root = loader.load();
+        UserMenuController userMenuController = loader.getController();
+        userMenuController.setHelloLabel(String.valueOf((UserSession.getInstance().getCnp())));
+        stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     private boolean areValid(Cnp cnp, Pin pin){
@@ -79,8 +87,7 @@ public class LoginController {
     }
 
     public void register(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Register.fxml"));
-        root = loader.load();
+        root = FXMLLoader.load(getClass().getResource("../view/Register.fxml"));
         stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

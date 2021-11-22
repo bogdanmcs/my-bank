@@ -2,10 +2,33 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sw.banca.controller.UserMenuController">
    <children>
-      <Label alignment="CENTER" layoutX="288.0" layoutY="315.0" prefHeight="71.0" prefWidth="125.0" text="Hello...?" />
+      <Label fx:id="helloLabel" alignment="CENTER" layoutX="78.0" layoutY="40.0" prefHeight="87.0" prefWidth="545.0">
+         <font>
+            <Font size="31.0" />
+         </font></Label>
+      <Button fx:id="terminationButton" layoutX="219.0" layoutY="597.0" mnemonicParsing="false" onAction="#terminateSession" prefHeight="70.0" prefWidth="263.0" style="-fx-background-color: indianred;" text="Termination">
+         <font>
+            <Font size="20.0" />
+         </font></Button>
+      <Button fx:id="depositButton" layoutX="63.0" layoutY="315.0" mnemonicParsing="false" onAction="#depositCash" prefHeight="70.0" prefWidth="263.0" text="Cash deposit">
+         <font>
+            <Font size="20.0" />
+         </font></Button>
+      <Button fx:id="withdrawalButton" layoutX="63.0" layoutY="186.0" mnemonicParsing="false" onAction="#withdrawCash" prefHeight="70.0" prefWidth="263.0" text="Cash withdrawal">
+         <font>
+            <Font size="20.0" />
+         </font></Button>
+      <Button fx:id="inquiryButton" layoutX="63.0" layoutY="446.0" mnemonicParsing="false" onAction="#inquireBalance" prefHeight="70.0" prefWidth="263.0" text="Balance Inquiry">
+         <font>
+            <Font size="20.0" />
+         </font></Button>
+      <Button fx:id="clearanceButton" layoutX="377.0" layoutY="186.0" mnemonicParsing="false" onAction="#clearAccounts" prefHeight="70.0" prefWidth="263.0" text="Clearance of accounts">
+         <font>
+            <Font size="20.0" />
+         </font></Button>
    </children>
 </AnchorPane>
