@@ -71,13 +71,17 @@ public class CashOperationController {
     }
 
     public void proceed(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../../../view/client/cashOperation/CashOperationConfirmation.fxml"));
-        root = loader.load();
-        CashOperationConfirmationController cashOperationConfirmationController = loader.getController();
-        cashOperationConfirmationController.setCashOperationType(cashOperationType);
-        cashOperationConfirmationController.setBalanceType(balanceType);
-        cashOperationConfirmationController.setTotalAmount(totalAmount);
-        setStage(actionEvent);
+        if(totalAmount != 0){
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../../../view/client/cashOperation/CashOperationConfirmation.fxml"));
+            root = loader.load();
+            CashOperationConfirmationController cashOperationConfirmationController = loader.getController();
+            cashOperationConfirmationController.setCashOperationType(cashOperationType);
+            cashOperationConfirmationController.setBalanceType(balanceType);
+            cashOperationConfirmationController.setTotalAmount(totalAmount);
+            setStage(actionEvent);
+        } else {
+            setErrorLabel("Amount cannot be empty.");
+        }
     }
 
     public void goBack(ActionEvent actionEvent) throws IOException {
