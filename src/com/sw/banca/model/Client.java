@@ -13,6 +13,12 @@ public class Client {
         accountBalance = new AccountBalance(0, 0);
     }
 
+    public Client(int cnp, int pin, AccountBalance accountBalance){
+        this.cnp = cnp;
+        this.pin = pin;
+        this.accountBalance = accountBalance;
+    }
+
     public int getCnp() {
         return cnp;
     }

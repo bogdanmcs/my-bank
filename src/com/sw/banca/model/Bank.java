@@ -24,7 +24,7 @@ public final class Bank implements Clientable {
         if(!INIT)
         {
             INIT = true;
-            createAccount(new Client(100, 1000));
+            createAccount(new Client(100, 1000, new AccountBalance(157, 305)));
             createAccount(new Client(200, 2000));
             createAccount(new Client(300, 3000));
         }

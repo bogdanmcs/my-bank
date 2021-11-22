@@ -22,7 +22,7 @@
          <font>
             <Font size="20.0" />
          </font></Button>
-      <Button fx:id="inquiryButton" layoutX="63.0" layoutY="446.0" mnemonicParsing="false" onAction="#inquireBalance" prefHeight="70.0" prefWidth="263.0" text="Balance Inquiry">
+      <Button fx:id="checkBalanceButton" layoutX="63.0" layoutY="446.0" mnemonicParsing="false" onAction="#checkBalance" prefHeight="70.0" prefWidth="263.0" text="Check Balance">
          <font>
             <Font size="20.0" />
          </font></Button>

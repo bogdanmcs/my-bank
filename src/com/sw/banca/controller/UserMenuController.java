@@ -1,5 +1,6 @@
 package com.sw.banca.controller;
 
+import com.sw.banca.misc.AccountBalance;
 import com.sw.banca.model.Bank;
 import com.sw.banca.model.UserSession;
 import javafx.event.ActionEvent;
@@ -32,8 +33,16 @@ public class UserMenuController {
 
     }
 
-    public void inquireBalance(ActionEvent actionEvent){
-
+    public void checkBalance(ActionEvent actionEvent) throws IOException {
+        AccountBalance accountBalance = Bank.getInstance().getBalanceQuery(UserSession.getInstance());
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/CheckBalance.fxml"));
+        root = loader.load();
+        CheckBalanceController checkBalanceController = loader.getController();
+        checkBalanceController.setBalanceLabels(accountBalance);
+        stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void clearAccounts(ActionEvent actionEvent) throws IOException {
