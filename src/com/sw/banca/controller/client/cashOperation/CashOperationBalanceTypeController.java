@@ -1,7 +1,9 @@
 package com.sw.banca.controller.client.cashOperation;
 
+import com.sw.banca.controller.client.ClientMenuController;
 import com.sw.banca.misc.BalanceType;
 import com.sw.banca.misc.CashOperationType;
+import com.sw.banca.model.UserSession;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,7 +43,10 @@ public class CashOperationBalanceTypeController {
     }
 
     public void goBack(ActionEvent actionEvent) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("../../../view/client/ClientMenu.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../../../view/client/ClientMenu.fxml"));
+        root = loader.load();
+        ClientMenuController clientMenuController = loader.getController();
+        clientMenuController.setHelloLabel(String.valueOf(UserSession.getInstance().getCnp()));
         setStage(actionEvent);
     }
 

@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sw.banca.controller.client.cashOperation.CashOperationResult">
    <children>
-       <Button fx:id="proceedButton" alignment="CENTER" layoutX="219.0" layoutY="594.0" mnemonicParsing="false" onAction="#returnToUserMenu" prefHeight="70.0" prefWidth="263.0" style="-fx-background-color: green;" text="OK">
+       <Button fx:id="proceedButton" alignment="CENTER" layoutX="219.0" layoutY="594.0" mnemonicParsing="false" onAction="#returnToClientMenu" prefHeight="70.0" prefWidth="263.0" style="-fx-background-color: green;" text="OK">
            <font>
                <Font size="20.0" />
            </font></Button>

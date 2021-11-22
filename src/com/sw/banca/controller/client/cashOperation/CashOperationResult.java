@@ -1,7 +1,9 @@
 package com.sw.banca.controller.client.cashOperation;
 
+import com.sw.banca.controller.client.ClientMenuController;
 import com.sw.banca.misc.BalanceType;
 import com.sw.banca.misc.CashOperationType;
+import com.sw.banca.model.UserSession;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,12 +27,12 @@ public class CashOperationResult {
     private BalanceType balanceType;
     private double totalAmount;
 
-    public void returnToUserMenu(ActionEvent actionEvent) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("../../../view/client/ClientMenu.fxml"));
-        stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    public void returnToClientMenu(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../../../view/client/ClientMenu.fxml"));
+        root = loader.load();
+        ClientMenuController clientMenuController = loader.getController();
+        clientMenuController.setHelloLabel(String.valueOf(UserSession.getInstance().getCnp()));
+        setStage(actionEvent);
     }
 
     public void setResultLabel(String message){
@@ -39,6 +41,13 @@ public class CashOperationResult {
 
     public void setCashOperationType(CashOperationType cashOperationType) {
         this.cashOperationType = cashOperationType;
+    }
+
+    private void setStage(ActionEvent actionEvent){
+        stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void setBalanceType(BalanceType balanceType) {
