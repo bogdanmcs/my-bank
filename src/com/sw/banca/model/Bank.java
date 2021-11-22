@@ -1,23 +1,32 @@
 package com.sw.banca.model;
 
+import com.sw.banca.misc.AccountBalance;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public final class Bank {
-    private static boolean INIT = false;
-    private static List<Client> clientList = new ArrayList<>();
+public final class Bank implements Clientable {
+    private boolean INIT = false;
+    private List<Client> clientList = new ArrayList<>();
 
-    private Bank(){
-        throw new UnsupportedOperationException();
+    private static Bank instance;
+
+    private Bank() {}
+
+    public static Bank getInstance() {
+        if(instance == null) {
+            instance = new Bank();
+        }
+        return instance;
     }
 
-    public static void initialize() {
+    public void initialize() {
         if(!INIT)
         {
             INIT = true;
-            Bank.addClient(new Client(100, 1000));
-            Bank.addClient(new Client(200, 2000));
-            Bank.addClient(new Client(300, 3000));
+            createAccount(new Client(100, 1000));
+            createAccount(new Client(200, 2000));
+            createAccount(new Client(300, 3000));
         }
         else
         {
@@ -25,44 +34,51 @@ public final class Bank {
         }
     }
 
-    public static List<Client> getClientList(){
+    public List<Client> getClientList(){
         return clientList;
     }
 
-    public static void addClient(Client client){
-        clientList.add(client);
-    }
-
-    public static boolean isRegistered(Client client){
+    public boolean isRegistered(Client client){
         for(Client c: clientList){
-            if(c.getCnp() == client.getCnp() && c.getPin() == client.getPin()){
+            if(c.getCnp() == client.getCnp()){
                 return true;
             }
         }
         return false;
     }
 
-    public static void deleteClient(int cnp, int pin){
+    @Override
+    public void createAccount(Client client) {
+        clientList.add(client);
+    }
+
+    @Override
+    public void deleteAccount(UserSession userSession) {
         for(Client c: clientList){
-            if(c.getCnp() == cnp && c.getPin() == pin){
+            if(c.getCnp() == userSession.getCnp() && c.getPin() == userSession.getPin()){
                 clientList.remove(c);
                 break;
             }
         }
     }
 
-//    public static void deleteClient(int cnp, int pin){
-//        for(Client c: clientList){
-//            if(c.getCnp() == cnp && c.getPin() == pin){
-//                clientList.remove(c);
-//                break;
-//            }
-//        }
-//    }
+    @Override
+    public void withdrawCash(UserSession userSession) {
 
-    public static void viewClients(){
+    }
+
+    @Override
+    public void depositCash(UserSession userSession) {
+
+    }
+
+    @Override
+    public AccountBalance getBalanceQuery(UserSession userSession) {
         for(Client c: clientList){
-            System.out.println("( " + c.getCnp() + ", " + c.getPin() + " )");
+            if(c.getCnp() == userSession.getCnp() && c.getPin() == userSession.getPin()){
+                return new AccountBalance(c.getSoldContEuro(), c.getSoldContRon());
+            }
         }
+        return new AccountBalance(-1, -1);
     }
 }

@@ -1,16 +1,16 @@
 package com.sw.banca.model;
 
+import com.sw.banca.misc.AccountBalance;
+
 public class Client {
     private final int cnp;
-    private int pin;
-    private double soldContEuro;
-    private double soldContRon;
+    private final int pin;
+    private final AccountBalance accountBalance;
 
     public Client(int cnp, int pin){
         this.cnp = cnp;
         this.pin = pin;
-        soldContEuro = 0;
-        soldContRon = 0;
+        accountBalance = new AccountBalance(0, 0);
     }
 
     public int getCnp() {
@@ -21,22 +21,12 @@ public class Client {
         return pin;
     }
 
-    public void setPin(int pin) { this.pin = pin; }
-
     public double getSoldContEuro() {
-        return soldContEuro;
-    }
-
-    public void setSoldContEuro(double soldContEuro) {
-        this.soldContEuro = soldContEuro;
+        return accountBalance.getSoldContEuro();
     }
 
     public double getSoldContRon() {
-        return soldContRon;
-    }
-
-    public void setSoldContRon(double soldContRon) {
-        this.soldContRon = soldContRon;
+        return accountBalance.getSoldcontRon();
     }
 
     public String getInfo(){

@@ -76,7 +76,7 @@ public class LoginController {
     }
 
     private boolean areCredentialsCorrect(Client client){
-        if(Bank.isRegistered(client)){
+        if(Bank.getInstance().isRegistered(client)){
             return true;
         }
         else

@@ -44,7 +44,7 @@ public class UserMenuController {
 
         Optional<ButtonType> result = alert.showAndWait();
         if(result.get() == ButtonType.OK){
-            Bank.deleteClient(UserSession.getInstance().getCnp(), UserSession.getInstance().getPin());
+            Bank.getInstance().deleteAccount(UserSession.getInstance());
             terminateSession(actionEvent);
         }
     }

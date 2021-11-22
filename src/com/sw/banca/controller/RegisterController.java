@@ -39,7 +39,7 @@ public class RegisterController {
 
             if(!doesClientAlreadyExist(client))
             {
-                Bank.addClient(client);
+                Bank.getInstance().createAccount(client);
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Login.fxml"));
                 root = loader.load();
                 LoginController loginController = loader.getController();
@@ -67,8 +67,8 @@ public class RegisterController {
     }
 
     private boolean doesClientAlreadyExist(Client client){
-        if(Bank.isRegistered(client)){
-            statusLabel.setText("Client already exists.");
+        if(Bank.getInstance().isRegistered(client)){
+            statusLabel.setText("Client is already registered.");
             return true;
         }
         else
