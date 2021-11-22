@@ -64,51 +64,65 @@ public final class Bank implements Clientable {
         }
     }
 
-    @Override
-    public ServerResponse withdrawCash(UserSession userSession, Transaction transaction) {
+    private Client getCurrentClient(UserSession userSession){
         for(Client c: clientList){
             if(c.getCnp() == userSession.getCnp() && c.getPin() == userSession.getPin()){
-                if(transaction.getBalanceType() == BalanceType.EURO){
-                    double currentEuroBalance = c.getEuroBalance();
-                    if(currentEuroBalance < transaction.getTotalAmount()){
-                        return ServerResponse.INSUFFICIENT_FUNDS;
-                    } else {
-                        c.setEuroBalance(currentEuroBalance - transaction.getTotalAmount());
-                        return ServerResponse.OPERATION_SUCCESSFUL;
-                    }
-                } else if(transaction.getBalanceType() == BalanceType.RON){
-                    double currentRonBalance = c.getRonBalance();
-                    if(currentRonBalance < transaction.getTotalAmount()){
-                        return ServerResponse.INSUFFICIENT_FUNDS;
-                    } else {
-                        c.setRonBalance(currentRonBalance - transaction.getTotalAmount());
-                        return ServerResponse.OPERATION_SUCCESSFUL;
-                    }
-                } else {
-                    return ServerResponse.UNEXPECTED_ERROR;
-                }
+                return c;
             }
         }
-        return ServerResponse.CLIENT_NOT_FOUND;
+        return null;
+    }
+
+    @Override
+    public ServerResponse withdrawCash(UserSession userSession, Transaction transaction) {
+        Client currentClient = getCurrentClient(userSession);
+        if(currentClient == null){
+            return ServerResponse.CLIENT_NOT_FOUND;
+        }
+        double currentBalance;
+        switch(transaction.getBalanceType()){
+            case EURO:
+                currentBalance = currentClient.getEuroBalance();
+                if(currentBalance < transaction.getTotalAmount()){
+                    return ServerResponse.INSUFFICIENT_FUNDS;
+                } else {
+                    currentClient.setEuroBalance(currentBalance - transaction.getTotalAmount());
+                }
+                break;
+            case RON:
+                currentBalance = currentClient.getRonBalance();
+                if(currentBalance < transaction.getTotalAmount()){
+                    return ServerResponse.INSUFFICIENT_FUNDS;
+                } else {
+                    currentClient.setRonBalance(currentBalance - transaction.getTotalAmount());
+                }
+                break;
+            default:
+                return ServerResponse.UNEXPECTED_ERROR;
+        }
+        return ServerResponse.OPERATION_SUCCESSFUL;
     }
 
     @Override
     public ServerResponse depositCash(UserSession userSession, Transaction transaction) {
-        for(Client c: clientList){
-            if(c.getCnp() == userSession.getCnp() && c.getPin() == userSession.getPin()){
-                if(transaction.getBalanceType() == BalanceType.EURO){
-                    double currentEuroBalance = c.getEuroBalance();
-                    c.setEuroBalance(currentEuroBalance + transaction.getTotalAmount());
-                } else if(transaction.getBalanceType() == BalanceType.RON){
-                    double currentRonBalance = c.getRonBalance();
-                    c.setRonBalance(currentRonBalance + transaction.getTotalAmount());
-                } else {
-                    return ServerResponse.UNEXPECTED_ERROR;
-                }
-                return ServerResponse.OPERATION_SUCCESSFUL;
-            }
+        Client currentClient = getCurrentClient(userSession);
+        if(currentClient == null){
+            return ServerResponse.CLIENT_NOT_FOUND;
         }
-        return ServerResponse.CLIENT_NOT_FOUND;
+        double currentBalance;
+        switch(transaction.getBalanceType()){
+            case EURO:
+                currentBalance = currentClient.getEuroBalance();
+                currentClient.setEuroBalance(currentBalance + transaction.getTotalAmount());
+                break;
+            case RON:
+                currentBalance = currentClient.getRonBalance();
+                currentClient.setRonBalance(currentBalance + transaction.getTotalAmount());
+                break;
+            default:
+                return ServerResponse.UNEXPECTED_ERROR;
+        }
+        return ServerResponse.OPERATION_SUCCESSFUL;
     }
 
     @Override
