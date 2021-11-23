@@ -1,7 +1,7 @@
 package com.sw.banca.controller.client.balanceChecker;
 
 import com.sw.banca.controller.client.ClientMenuController;
-import com.sw.banca.misc.AccountBalance;
+import com.sw.banca.misc.client.AccountBalance;
 import com.sw.banca.model.UserSession;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

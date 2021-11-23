@@ -6,11 +6,11 @@
 
 <AnchorPane prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sw.banca.controller.client.cashOperation.CashOperationBalanceTypeController">
    <children>
-       <Button fx:id="goBackButton" alignment="CENTER" layoutX="205.0" layoutY="593.0" mnemonicParsing="false" onAction="#goBack" prefHeight="70.0" prefWidth="263.0" style="-fx-background-color: indianred;" text="Cancel">
+       <Button fx:id="goBackButton" alignment="CENTER" layoutX="219.0" layoutY="593.0" mnemonicParsing="false" onAction="#goBack" prefHeight="70.0" prefWidth="263.0" style="-fx-background-color: indianred;" text="Cancel">
            <font>
                <Font size="20.0" />
            </font></Button>
-       <Button fx:id="selectRonAccountButton" alignment="CENTER" layoutX="232.0" layoutY="332.0" mnemonicParsing="false" onAction="#selectRonBalance" prefHeight="70.0" prefWidth="210.0" text="RON">
+       <Button fx:id="selectRonAccountButton" alignment="CENTER" layoutX="232.0" layoutY="331.0" mnemonicParsing="false" onAction="#selectRonBalance" prefHeight="70.0" prefWidth="210.0" text="RON">
            <font>
                <Font size="20.0" />
            </font></Button>

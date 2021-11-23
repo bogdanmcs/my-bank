@@ -1,9 +1,9 @@
 package com.sw.banca.controller.client.cashOperation;
 
-import com.sw.banca.misc.BalanceType;
-import com.sw.banca.misc.CashOperationType;
-import com.sw.banca.misc.ServerResponse;
-import com.sw.banca.misc.Transaction;
+import com.sw.banca.misc.enums.BalanceType;
+import com.sw.banca.misc.enums.CashOperationType;
+import com.sw.banca.misc.enums.ServerResponse;
+import com.sw.banca.misc.client.Transaction;
 import com.sw.banca.model.Bank;
 import com.sw.banca.model.UserSession;
 import javafx.event.ActionEvent;

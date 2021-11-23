@@ -1,8 +1,9 @@
 package com.sw.banca.controller.auth;
 
 import com.sw.banca.controller.client.ClientMenuController;
-import com.sw.banca.misc.Cnp;
-import com.sw.banca.misc.Pin;
+import com.sw.banca.controller.fisc.FiscMenuController;
+import com.sw.banca.misc.client.Cnp;
+import com.sw.banca.misc.client.Pin;
 import com.sw.banca.model.Bank;
 import com.sw.banca.model.client.Client;
 import com.sw.banca.model.UserSession;
@@ -18,6 +19,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 public class LoginController {
     @FXML
@@ -51,15 +53,21 @@ public class LoginController {
         }
     }
 
+    public void loginFisc(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../../view/fisc/FiscMenu.fxml"));
+        root = loader.load();
+        FiscMenuController fiscMenuController = loader.getController();
+        List<Client> clientsList = Bank.getInstance().getClientsList();
+        fiscMenuController.setClientsList(clientsList);
+        setStage(actionEvent);
+    }
+
     public void loadUserMenu(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../../view/client/ClientMenu.fxml"));
         root = loader.load();
         ClientMenuController clientMenuController = loader.getController();
         clientMenuController.setHelloLabel(String.valueOf((UserSession.getInstance().getCnp())));
-        stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        setStage(actionEvent);
     }
 
     private boolean areValid(Cnp cnp, Pin pin){
@@ -89,14 +97,18 @@ public class LoginController {
 
     public void register(ActionEvent actionEvent) throws IOException {
         root = FXMLLoader.load(getClass().getResource("../../view/auth/Register.fxml"));
-        stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        setStage(actionEvent);
     }
 
     public void setStatusLabel(String message, Color color){
         statusLabel.setText(message);
         statusLabel.setTextFill(color);
+    }
+
+    private void setStage(ActionEvent actionEvent) {
+        stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }

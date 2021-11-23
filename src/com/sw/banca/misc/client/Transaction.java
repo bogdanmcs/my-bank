@@ -1,4 +1,7 @@
-package com.sw.banca.misc;
+package com.sw.banca.misc.client;
+
+import com.sw.banca.misc.enums.BalanceType;
+import com.sw.banca.misc.enums.CashOperationType;
 
 public class Transaction {
     private CashOperationType cashOperationType;

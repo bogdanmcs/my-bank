@@ -1,4 +1,4 @@
-package com.sw.banca.misc;
+package com.sw.banca.misc.client;
 
 public class Cnp {
     private String cnpCode;

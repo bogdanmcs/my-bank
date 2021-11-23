@@ -1,15 +1,20 @@
 package com.sw.banca.model;
 
-import com.sw.banca.misc.*;
+import com.sw.banca.misc.client.AccountBalance;
+import com.sw.banca.misc.client.Transaction;
+import com.sw.banca.misc.enums.ServerResponse;
 import com.sw.banca.model.client.Client;
 import com.sw.banca.model.client.Clientable;
+import com.sw.banca.model.fisc.Fiscable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public final class Bank implements Clientable {
+public final class Bank implements Clientable, Fiscable {
     private boolean INIT = false;
-    private List<Client> clientList = new ArrayList<>();
+
+    private final List<Client> clientsList = new ArrayList<>();
+    private final List<Client> trackedClientsList = new ArrayList<>();
 
     private static Bank instance;
 
@@ -36,12 +41,8 @@ public final class Bank implements Clientable {
         }
     }
 
-    public List<Client> getClientList(){
-        return clientList;
-    }
-
     public boolean isRegistered(Client client){
-        for(Client c: clientList){
+        for(Client c: clientsList){
             if(c.getCnp() == client.getCnp() && c.getPin() == client.getPin()){
                 return true;
             }
@@ -51,21 +52,21 @@ public final class Bank implements Clientable {
 
     @Override
     public void createAccount(Client client) {
-        clientList.add(client);
+        clientsList.add(client);
     }
 
     @Override
     public void deleteAccount(UserSession userSession) {
-        for(Client c: clientList){
+        for(Client c: clientsList){
             if(c.getCnp() == userSession.getCnp() && c.getPin() == userSession.getPin()){
-                clientList.remove(c);
+                clientsList.remove(c);
                 break;
             }
         }
     }
 
     private Client getCurrentClient(UserSession userSession){
-        for(Client c: clientList){
+        for(Client c: clientsList){
             if(c.getCnp() == userSession.getCnp() && c.getPin() == userSession.getPin()){
                 return c;
             }
@@ -83,7 +84,7 @@ public final class Bank implements Clientable {
         switch(transaction.getBalanceType()){
             case EURO:
                 currentBalance = currentClient.getEuroBalance();
-                if(currentBalance < transaction.getTotalAmount()){
+                if(currentBalance < transaction.getTotalAmount() || currentBalance <= 1000){
                     return ServerResponse.INSUFFICIENT_FUNDS;
                 } else {
                     currentClient.setEuroBalance(currentBalance - transaction.getTotalAmount());
@@ -100,7 +101,7 @@ public final class Bank implements Clientable {
             default:
                 return ServerResponse.UNEXPECTED_ERROR;
         }
-        return ServerResponse.OPERATION_SUCCESSFUL;
+        return confirmOperationSuccessful();
     }
 
     @Override
@@ -122,16 +123,71 @@ public final class Bank implements Clientable {
             default:
                 return ServerResponse.UNEXPECTED_ERROR;
         }
-        return ServerResponse.OPERATION_SUCCESSFUL;
+        return confirmOperationSuccessful();
     }
 
     @Override
     public AccountBalance getBalanceQuery(UserSession userSession) {
-        for(Client c: clientList){
+        for(Client c: clientsList){
             if(c.getCnp() == userSession.getCnp() && c.getPin() == userSession.getPin()){
                 return new AccountBalance(c.getEuroBalance(), c.getRonBalance());
             }
         }
         return new AccountBalance(-1, -1);
+    }
+
+    @Override
+    public List<Client> getClientsList(){
+        return clientsList;
+    }
+
+    private Client getTrackedClient(Client client){
+        for(Client c: trackedClientsList){
+            if(c.getCnp() == client.getCnp() && c.getPin() == client.getPin()){
+                return c;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public ServerResponse startClientTracking(Client client) {
+        if(getTrackedClient(client) != null){
+            return ServerResponse.CLIENT_ALREADY_TRACKED;
+        } else {
+            trackedClientsList.add(client);
+            return ServerResponse.OPERATION_SUCCESSFUL;
+        }
+    }
+
+    @Override
+    public ServerResponse stopClientTracking(Client client) {
+        if(getTrackedClient(client) == null){
+            return ServerResponse.CLIENT_NOT_TRACKED;
+        } else {
+            trackedClientsList.remove(client);
+            return ServerResponse.OPERATION_SUCCESSFUL;
+        }
+    }
+
+    private ServerResponse confirmOperationSuccessful() {
+
+        notifyFisc();
+        return ServerResponse.OPERATION_SUCCESSFUL;
+    }
+
+    @Override
+    public ServerResponse isClientTracked(Client client) {
+        for(Client c: trackedClientsList){
+            if(c.getCnp() == client.getCnp() && c.getPin() == client.getPin()){
+                return ServerResponse.CLIENT_ALREADY_TRACKED;
+            }
+        }
+        return ServerResponse.CLIENT_NOT_TRACKED;
+    }
+
+    @Override
+    public void notifyFisc() {
+
     }
 }

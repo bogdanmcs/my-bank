@@ -1,7 +1,7 @@
 package com.sw.banca.controller.client.cashOperation;
 
-import com.sw.banca.misc.BalanceType;
-import com.sw.banca.misc.CashOperationType;
+import com.sw.banca.misc.enums.BalanceType;
+import com.sw.banca.misc.enums.CashOperationType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

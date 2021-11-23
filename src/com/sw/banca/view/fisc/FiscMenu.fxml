@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sw.banca.controller.fisc.FiscMenuController">
+   <children>
+      <ListView fx:id="clientsListView" layoutX="158.0" layoutY="95.0" onMouseClicked="#selectClient" prefHeight="427.0" prefWidth="385.0" />
+      <Button fx:id="terminationButton" layoutX="219.0" layoutY="593.0" mnemonicParsing="false" onAction="#terminateSession" prefHeight="70.0" prefWidth="263.0" style="-fx-background-color: indianred;" text="Termination">
+         <font>
+            <Font size="20.0" />
+         </font></Button>
+   </children>
+</AnchorPane>

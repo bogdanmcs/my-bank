@@ -1,7 +1,7 @@
 package com.sw.banca.controller.auth;
 
-import com.sw.banca.misc.Cnp;
-import com.sw.banca.misc.Pin;
+import com.sw.banca.misc.client.Cnp;
+import com.sw.banca.misc.client.Pin;
 import com.sw.banca.model.Bank;
 import com.sw.banca.model.client.Client;
 import javafx.event.ActionEvent;

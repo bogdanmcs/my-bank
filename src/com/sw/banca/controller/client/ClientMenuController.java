@@ -2,8 +2,8 @@ package com.sw.banca.controller.client;
 
 import com.sw.banca.controller.client.balanceChecker.BalanceCheckerController;
 import com.sw.banca.controller.client.cashOperation.CashOperationBalanceTypeController;
-import com.sw.banca.misc.AccountBalance;
-import com.sw.banca.misc.CashOperationType;
+import com.sw.banca.misc.client.AccountBalance;
+import com.sw.banca.misc.enums.CashOperationType;
 import com.sw.banca.model.Bank;
 import com.sw.banca.model.UserSession;
 import javafx.event.ActionEvent;

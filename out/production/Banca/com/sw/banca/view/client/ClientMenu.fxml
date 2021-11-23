@@ -10,7 +10,7 @@
          <font>
             <Font size="31.0" />
          </font></Label>
-      <Button fx:id="terminationButton" layoutX="219.0" layoutY="597.0" mnemonicParsing="false" onAction="#terminateSession" prefHeight="70.0" prefWidth="263.0" style="-fx-background-color: indianred;" text="Termination">
+      <Button fx:id="terminationButton" layoutX="219.0" layoutY="593.0" mnemonicParsing="false" onAction="#terminateSession" prefHeight="70.0" prefWidth="263.0" style="-fx-background-color: indianred;" text="Termination">
          <font>
             <Font size="20.0" />
          </font></Button>

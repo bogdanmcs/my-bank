@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sw.banca.controller.fisc.FiscClientStatusController">
+   <children>
+       <Button fx:id="goBackButton" layoutX="66.0" layoutY="592.0" mnemonicParsing="false" onAction="#goBack" prefHeight="70.0" prefWidth="263.0" style="-fx-background-color: indianred;" text="Go back">
+           <font>
+               <Font size="20.0" />
+           </font></Button>
+      <Label alignment="TOP_CENTER" layoutX="32.0" layoutY="34.0" prefHeight="306.0" prefWidth="330.0" style="-fx-background-color: lightgrey; -fx-background-radius: 10;" text="Client information">
+         <font>
+            <Font name="System Italic" size="35.0" />
+         </font>
+      </Label>
+      <Label layoutX="104.0" layoutY="103.0" prefHeight="35.0" prefWidth="166.0" />
+      <Label layoutX="66.0" layoutY="106.0" prefHeight="42.0" prefWidth="70.0" text="ID" />
+      <Label layoutX="66.0" layoutY="156.0" prefHeight="42.0" prefWidth="70.0" text="EURO" />
+      <Label layoutX="66.0" layoutY="206.0" prefHeight="42.0" prefWidth="70.0" text="RON" />
+      <Label layoutX="66.0" layoutY="256.0" prefHeight="42.0" prefWidth="70.0" text="STATUS" />
+      <Label fx:id="clientIdLabel" alignment="CENTER" layoutX="149.0" layoutY="103.0" prefHeight="42.0" prefWidth="205.0" text="id">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
+      <Label fx:id="clientEuroBalanceLabel" alignment="CENTER" layoutX="149.0" layoutY="153.0" prefHeight="42.0" prefWidth="205.0" text="euro">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
+      <Label fx:id="clientRonBalanceLabel" alignment="CENTER" layoutX="149.0" layoutY="203.0" prefHeight="42.0" prefWidth="205.0" text="ron">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
+      <Label fx:id="clientStatusLabel" alignment="TOP_CENTER" layoutX="149.0" layoutY="265.0" prefHeight="64.0" prefWidth="205.0" text="Clientt is currently tracked." textFill="#118d0a">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+      <Button fx:id="clientStatusButton" layoutX="80.0" layoutY="385.0" mnemonicParsing="false" onAction="#setClientStatus" prefHeight="54.0" prefWidth="234.0" text="UNTRACK CLIENT" wrapText="true">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <TextArea fx:id="clientOperationsLabel" layoutX="397.0" layoutY="77.0" prefHeight="585.0" prefWidth="272.0" />
+      <Label alignment="CENTER" layoutX="455.0" layoutY="34.0" prefHeight="35.0" prefWidth="156.0" text="Operations">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

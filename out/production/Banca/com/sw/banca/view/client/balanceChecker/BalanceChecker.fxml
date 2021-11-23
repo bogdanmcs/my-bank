@@ -14,7 +14,7 @@
          <font>
             <Font size="22.0" />
          </font></Label>
-       <Button fx:id="goBackButton" layoutX="219.0" layoutY="597.0" mnemonicParsing="false" onAction="#goBack" prefHeight="70.0" prefWidth="263.0" style="-fx-background-color: indianred;" text="Go back">
+       <Button fx:id="goBackButton" layoutX="219.0" layoutY="593.0" mnemonicParsing="false" onAction="#goBack" prefHeight="70.0" prefWidth="263.0" style="-fx-background-color: indianred;" text="Go back">
            <font>
                <Font size="20.0" />
            </font></Button>

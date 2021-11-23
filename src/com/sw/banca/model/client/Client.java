@@ -1,6 +1,6 @@
 package com.sw.banca.model.client;
 
-import com.sw.banca.misc.AccountBalance;
+import com.sw.banca.misc.client.AccountBalance;
 
 public class Client {
     private final int cnp;
@@ -41,5 +41,9 @@ public class Client {
 
     public void setRonBalance(double ronAmount) {
         accountBalance.setBalanceRon(ronAmount);
+    }
+
+    public String getInfo(){
+        return "( id: " + cnp + ", EURO: " + accountBalance.getBalanceEuro() + ", RON: " + accountBalance.getBalanceRon() + " )";
     }
 }

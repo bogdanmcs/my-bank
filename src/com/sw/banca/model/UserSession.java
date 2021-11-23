@@ -1,7 +1,5 @@
 package com.sw.banca.model;
 
-import com.sw.banca.misc.BalanceType;
-
 public final class UserSession {
 
     private static UserSession instance;
