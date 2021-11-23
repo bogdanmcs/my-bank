@@ -45,11 +45,9 @@ public class FiscClientStatusController {
         setClientRonBalanceLabel(String.valueOf(client.getRonBalance()));
         ServerResponse serverResponse = Bank.getInstance().isClientTracked(client);
         if(serverResponse == ServerResponse.CLIENT_ALREADY_TRACKED) {
-            setClientStatusLabel("Client is currently tracked.", Color.GREEN);
-            setClientStatusButton("Untrack");
+            setClientStatusAsTracked();
         } else {
-            setClientStatusLabel("Client is currently not tracked.", Color.RED);
-            setClientStatusButton("Track");
+            setClientStatusAsUntracked();
         }
     }
 
@@ -65,16 +63,24 @@ public class FiscClientStatusController {
         clientRonBalanceLabel.setText(clientRonBalance);
     }
 
+    private void setClientStatusAsTracked(){
+        setClientStatusLabel("Client is currently tracked.", Color.GREEN);
+        setClientStatusButton("Untrack");
+    }
+
+    private void  setClientStatusAsUntracked(){
+        setClientStatusLabel("Client is currently not tracked.", Color.RED);
+        setClientStatusButton("Track");
+    }
+
     public void setClientStatus(ActionEvent actionEvent) {
         ServerResponse serverResponse = Bank.getInstance().isClientTracked(currentClient);
         if(serverResponse == ServerResponse.CLIENT_NOT_TRACKED) {
             Bank.getInstance().startClientTracking(currentClient);
-            setClientStatusLabel("Client is currently tracked.", Color.GREEN);
-            setClientStatusButton("Untrack");
+            setClientStatusAsTracked();
         } else {
             Bank.getInstance().stopClientTracking(currentClient);
-            setClientStatusLabel("Client is currently not tracked.", Color.RED);
-            setClientStatusButton("Track");
+            setClientStatusAsUntracked();
         }
     }
 
