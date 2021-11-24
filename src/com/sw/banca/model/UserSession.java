@@ -32,10 +32,6 @@ public final class UserSession {
         this.pin = pin;
     }
 
-    public String getInfo(){
-        return "( " + cnp + ", " + pin + " )";
-    }
-
     public void clearSession() {
         cnp = -1;
         pin = -1;

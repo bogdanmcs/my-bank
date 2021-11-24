@@ -6,11 +6,11 @@ import com.sw.banca.misc.enums.CashOperationType;
 import java.time.LocalDateTime;
 
 public class Transaction {
-    private CashOperationType cashOperationType;
-    private BalanceType balanceType;
-    private double totalAmount;
+    private final CashOperationType cashOperationType;
+    private final BalanceType balanceType;
+    private final double totalAmount;
 
-    public Transaction(CashOperationType cashOperationType, BalanceType balanceType, double totalAmount){
+    public Transaction(CashOperationType cashOperationType, BalanceType balanceType, double totalAmount) {
         this.cashOperationType = cashOperationType;
         this.balanceType = balanceType;
         this.totalAmount = totalAmount;
@@ -22,10 +22,6 @@ public class Transaction {
 
     public BalanceType getBalanceType() {
         return balanceType;
-    }
-
-    public void setBalanceType(BalanceType balanceType) {
-        this.balanceType = balanceType;
     }
 
     public double getTotalAmount() {

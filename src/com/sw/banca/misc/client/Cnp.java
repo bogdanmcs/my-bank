@@ -1,18 +1,18 @@
 package com.sw.banca.misc.client;
 
 public class Cnp {
-    private String cnpCode;
+    private final String cnpCode;
 
-    public Cnp(String cnpCode){
+    public Cnp(String cnpCode) {
         this.cnpCode = cnpCode;
     }
 
-    public boolean isValid(){
-        if(cnpCode.length() != 3){ // 13
+    public boolean isValid() {
+        if (cnpCode.length() != 3) {
             return false;
         }
-        for(int i = 0; i < cnpCode.length(); i++){
-            if(!Character.isDigit(cnpCode.charAt(i))){
+        for (int i = 0; i < cnpCode.length(); i++) {
+            if (!Character.isDigit(cnpCode.charAt(i))) {
                 return false;
             }
         }
@@ -21,9 +21,5 @@ public class Cnp {
 
     public String getCnpCode() {
         return cnpCode;
-    }
-
-    public void setCnpCode(String cnpCode) {
-        this.cnpCode = cnpCode;
     }
 }

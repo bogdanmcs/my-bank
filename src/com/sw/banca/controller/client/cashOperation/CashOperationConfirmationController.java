@@ -34,16 +34,16 @@ public class CashOperationConfirmationController {
         setStage(actionEvent);
     }
 
-    private String handleTransaction(Transaction transaction){
+    private String handleTransaction(Transaction transaction) {
         ServerResponse serverResponse = getServerResponse(transaction);
         return getCorrespondingMessage(serverResponse);
     }
 
-    private ServerResponse getServerResponse(Transaction transaction){
+    private ServerResponse getServerResponse(Transaction transaction) {
         ServerResponse serverResponse;
-        if(transaction.getCashOperationType() == CashOperationType.WITHDRAW){
+        if (transaction.getCashOperationType() == CashOperationType.WITHDRAW) {
             serverResponse = Bank.getInstance().withdrawCash(UserSession.getInstance(), transaction);
-        } else if(transaction.getCashOperationType() == CashOperationType.DEPOSIT){
+        } else if (transaction.getCashOperationType() == CashOperationType.DEPOSIT) {
             serverResponse = Bank.getInstance().depositCash(UserSession.getInstance(), transaction);
         } else {
             throw new IllegalStateException();
@@ -51,11 +51,11 @@ public class CashOperationConfirmationController {
         return serverResponse;
     }
 
-    private String getCorrespondingMessage(ServerResponse serverResponse){
+    private String getCorrespondingMessage(ServerResponse serverResponse) {
         String message;
-        if(serverResponse == ServerResponse.OPERATION_SUCCESSFUL) {
+        if (serverResponse == ServerResponse.OPERATION_SUCCESSFUL) {
             message = "Operation was successful.";
-        } else if(serverResponse == ServerResponse.INSUFFICIENT_FUNDS) {
+        } else if (serverResponse == ServerResponse.INSUFFICIENT_FUNDS) {
             message = "Insufficient funds.";
         } else {
             message = "Operation was unsuccessful. Please try again or ask the bank representatives for help.";

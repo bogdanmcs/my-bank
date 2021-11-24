@@ -24,7 +24,7 @@ public class BalanceCheckerController {
     private Scene scene;
     private Parent root;
 
-    public void setBalanceLabels(AccountBalance accountBalance){
+    public void setBalanceLabels(AccountBalance accountBalance) {
         balanceEuroLabel.setText(String.valueOf(accountBalance.getBalanceEuro()));
         balanceRonLabel.setText(String.valueOf(accountBalance.getBalanceRon()));
     }
@@ -34,6 +34,10 @@ public class BalanceCheckerController {
         root = loader.load();
         ClientMenuController clientMenuController = loader.getController();
         clientMenuController.setHelloLabel(String.valueOf(UserSession.getInstance().getCnp()));
+        setStage(actionEvent);
+    }
+
+    private void setStage(ActionEvent actionEvent) {
         stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

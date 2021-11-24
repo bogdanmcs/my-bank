@@ -7,12 +7,12 @@ public class MetDecoder {
         this.source = source;
     }
 
-    public String getTextAttribute(){
+    public String getTextAttribute() {
         String text = source;
-        if(text.startsWith("Text")){
+        if (text.startsWith("Text")) {
             text = text.substring(text.indexOf("\"") + 1);
             text = text.substring(0, text.indexOf("\""));
-        } else if(source.startsWith("ListViewSkin")){
+        } else if (source.startsWith("ListViewSkin")) {
             text = text.substring(text.indexOf("'") + 1);
             text = text.substring(0, text.indexOf("'"));
         } else {

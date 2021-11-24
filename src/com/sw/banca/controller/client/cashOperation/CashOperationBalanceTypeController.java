@@ -50,27 +50,24 @@ public class CashOperationBalanceTypeController {
         setStage(actionEvent);
     }
 
-    public void setCashOperationType(CashOperationType cashOperationType){
+    public void setCashOperationType(CashOperationType cashOperationType) {
         this.cashOperationType = cashOperationType;
         setInfoLabel();
     }
 
-    private void setInfoLabel(){
+    private void setInfoLabel() {
         String message = "Please select the balance account from which you would like to ";
-        if(cashOperationType == CashOperationType.WITHDRAW){
+        if (cashOperationType == CashOperationType.WITHDRAW) {
             message += "withdraw.";
-        }
-        else if(cashOperationType == CashOperationType.DEPOSIT){
+        } else if (cashOperationType == CashOperationType.DEPOSIT) {
             message += "deposit.";
-        }
-        else
-        {
+        } else {
             throw new IllegalStateException();
         }
         infoLabel.setText(message);
     }
 
-    private void setStage(ActionEvent actionEvent){
+    private void setStage(ActionEvent actionEvent) {
         stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

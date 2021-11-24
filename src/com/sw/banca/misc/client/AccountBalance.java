@@ -4,7 +4,7 @@ public class AccountBalance {
     private double balanceEuro;
     private double balanceRon;
 
-    public AccountBalance(double balanceEuro, double balanceRon){
+    public AccountBalance(double balanceEuro, double balanceRon) {
         this.balanceEuro = balanceEuro;
         this.balanceRon = balanceRon;
     }

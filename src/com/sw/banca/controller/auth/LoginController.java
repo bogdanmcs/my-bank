@@ -37,14 +37,12 @@ public class LoginController {
         Cnp cnp = new Cnp(cnpTextField.getText());
         Pin pin = new Pin(pinTextField.getText());
 
-        if(areValid(cnp, pin))
-        {
+        if (areValid(cnp, pin)) {
             int cnpToInt = Integer.parseInt(cnp.getCnpCode());
             int pinToInt = Integer.parseInt(pin.getPinCode());
             Client client = new Client(cnpToInt, pinToInt);
 
-            if(areCredentialsCorrect(client))
-            {
+            if (areCredentialsCorrect(client)) {
                 System.out.println("Log: client " + client.getCnp() + " has successfully logged in");
                 UserSession.getInstance().setCnp(cnpToInt);
                 UserSession.getInstance().setPin(pinToInt);
@@ -70,26 +68,22 @@ public class LoginController {
         setStage(actionEvent);
     }
 
-    private boolean areValid(Cnp cnp, Pin pin){
-        if(cnp.isValid() && pin.isValid()){
+    private boolean areValid(Cnp cnp, Pin pin) {
+        if (cnp.isValid() && pin.isValid()) {
             return true;
         }
-        if(!cnp.isValid()){
+        if (!cnp.isValid()) {
             setStatusLabel("CNP is not valid. Format is XXX, numbers only.", Color.RED);
-        }
-        else
-        {
+        } else {
             setStatusLabel("PIN is not valid. Format is XXXX, numbers only.", Color.RED);
         }
         return false;
     }
 
-    private boolean areCredentialsCorrect(Client client){
-        if(Bank.getInstance().isRegistered(client)){
+    private boolean areCredentialsCorrect(Client client) {
+        if (Bank.getInstance().isRegistered(client)) {
             return true;
-        }
-        else
-        {
+        } else {
             setStatusLabel("Invalid credentials. Please try again.", Color.RED);
             return false;
         }
@@ -100,7 +94,7 @@ public class LoginController {
         setStage(actionEvent);
     }
 
-    public void setStatusLabel(String message, Color color){
+    public void setStatusLabel(String message, Color color) {
         statusLabel.setText(message);
         statusLabel.setTextFill(color);
     }

@@ -2,7 +2,6 @@ package com.sw.banca.controller.fisc;
 
 import com.sw.banca.misc.enums.ServerResponse;
 import com.sw.banca.model.Bank;
-import com.sw.banca.model.UserSession;
 import com.sw.banca.model.client.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -38,13 +37,13 @@ public class FiscClientStatusController {
 
     private Client currentClient;
 
-    public void setClientInfo(Client client){
+    public void setClientInfo(Client client) {
         currentClient = client;
         setClientIdLabel(String.valueOf(client.getCnp()));
         setClientEuroBalanceLabel(String.valueOf(client.getEuroBalance()));
         setClientRonBalanceLabel(String.valueOf(client.getRonBalance()));
         ServerResponse serverResponse = Bank.getInstance().isClientTracked(client);
-        if(serverResponse == ServerResponse.CLIENT_ALREADY_TRACKED) {
+        if (serverResponse == ServerResponse.CLIENT_ALREADY_TRACKED) {
             setClientStatusAsTracked();
         } else {
             setClientStatusAsUntracked();
@@ -63,19 +62,19 @@ public class FiscClientStatusController {
         clientRonBalanceLabel.setText(clientRonBalance);
     }
 
-    private void setClientStatusAsTracked(){
+    private void setClientStatusAsTracked() {
         setClientStatusLabel("Client is currently tracked.", Color.GREEN);
         setClientStatusButton("Untrack");
     }
 
-    private void  setClientStatusAsUntracked(){
+    private void  setClientStatusAsUntracked() {
         setClientStatusLabel("Client is currently not tracked.", Color.RED);
         setClientStatusButton("Track");
     }
 
-    public void setClientStatus(ActionEvent actionEvent) {
+    public void setClientStatus() {
         ServerResponse serverResponse = Bank.getInstance().isClientTracked(currentClient);
-        if(serverResponse == ServerResponse.CLIENT_NOT_TRACKED) {
+        if (serverResponse == ServerResponse.CLIENT_NOT_TRACKED) {
             Bank.getInstance().startClientTracking(currentClient);
             setClientStatusAsTracked();
         } else {
@@ -83,14 +82,14 @@ public class FiscClientStatusController {
         }
     }
 
-    private void confirmUntracking(){
+    private void confirmUntracking() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Bank");
         alert.setHeaderText("Untrack client " + currentClient.getCnp());
         alert.setContentText("Are you sure you want to untrack this client? All history will be deleted.");
 
         Optional<ButtonType> result = alert.showAndWait();
-        if(result.get() == ButtonType.OK){
+        if (result.isPresent() && result.get() == ButtonType.OK) {
             Bank.getInstance().stopClientTracking(currentClient);
             setClientStatusAsUntracked();
             clientOperationsLabel.setText("");
@@ -108,7 +107,7 @@ public class FiscClientStatusController {
 
 
     public void setClientOperationsLabel(List<String> clientOperations) {
-        if(!clientOperations.isEmpty()){
+        if (!clientOperations.isEmpty()) {
             clientOperationsLabel.setText(clientOperations.toString());
         }
     }
@@ -123,7 +122,7 @@ public class FiscClientStatusController {
         setStage(actionEvent);
     }
 
-    private void setStage(ActionEvent actionEvent){
+    private void setStage(ActionEvent actionEvent) {
         stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

@@ -34,44 +34,42 @@ public class CashOperationController {
     private BalanceType balanceType;
     private double totalAmount = 0;
 
-    public void addAmount1(){
+    public void addAmount1() {
         totalAmount += 1;
         setTotalAmountLabel();
     }
 
-    public void addAmount5(){
+    public void addAmount5() {
         totalAmount += 5;
         setTotalAmountLabel();
     }
 
-    public void addAmount10(){
+    public void addAmount10() {
         totalAmount += 10;
         setTotalAmountLabel();
     }
 
-    public void addAmount50(){
+    public void addAmount50() {
         totalAmount += 50;
         setTotalAmountLabel();
     }
 
-    public void addAmount100(){
+    public void addAmount100() {
         totalAmount += 100;
         setTotalAmountLabel();
     }
 
-    public void addAmountCustom(ActionEvent actionEvent){
-        if(isNumerical(saveAmountTextField.getText())){
+    public void addAmountCustom() {
+        if (isNumerical(saveAmountTextField.getText())) {
             double customAmount = Double.parseDouble(saveAmountTextField.getText());
             setTotalAmount(customAmount);
-        }
-        else
-        {
+        } else {
             setErrorLabel("Amount must be numerical.");
         }
     }
 
     public void proceed(ActionEvent actionEvent) throws IOException {
-        if(totalAmount != 0){
+        if (totalAmount != 0) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../../../view/client/cashOperation/CashOperationConfirmation.fxml"));
             root = loader.load();
             CashOperationConfirmationController cashOperationConfirmationController = loader.getController();
@@ -92,65 +90,59 @@ public class CashOperationController {
         setStage(actionEvent);
     }
 
-    public void setCashOperationType(CashOperationType cashOperationType){
+    public void setCashOperationType(CashOperationType cashOperationType) {
         this.cashOperationType = cashOperationType;
         setInfoLabel();
     }
 
-    private void setInfoLabel(){
+    private void setInfoLabel() {
         String message = "Please select the amount that you would like to ";
-        if(cashOperationType == CashOperationType.WITHDRAW){
+        if (cashOperationType == CashOperationType.WITHDRAW) {
             message += "withdraw.";
-        }
-        else if(cashOperationType == CashOperationType.DEPOSIT){
+        } else if (cashOperationType == CashOperationType.DEPOSIT) {
             message += "deposit.";
-        }
-        else
-        {
+        } else {
             throw new IllegalStateException();
         }
         infoLabel.setText(message);
     }
 
-    public void setBalanceType(BalanceType balanceType){
+    public void setBalanceType(BalanceType balanceType) {
         this.balanceType = balanceType;
         setBalanceTypeLabel();
     }
 
-    public void setBalanceTypeLabel(){
-        if(balanceType == BalanceType.EURO || balanceType == BalanceType.RON)
-        {
+    public void setBalanceTypeLabel() {
+        if (balanceType == BalanceType.EURO || balanceType == BalanceType.RON) {
             balanceTypeLabel.setText(String.valueOf(balanceType));
-        }
-        else
-        {
+        } else {
             throw new IllegalStateException();
         }
     }
 
-    public void setTotalAmount(double totalAmount){
+    public void setTotalAmount(double totalAmount) {
         this.totalAmount = totalAmount;
         setTotalAmountLabel();
     }
 
-    public void setTotalAmountLabel(){
+    public void setTotalAmountLabel() {
         totalAmountLabel.setText(String.valueOf(totalAmount));
     }
 
-    public void setErrorLabel(String message){
+    public void setErrorLabel(String message) {
         errorLabel.setText(message);
     }
 
-    private boolean isNumerical(String text){
-        for(int i = 0; i < text.length(); i++){
-            if(!Character.isDigit(text.charAt(i))){
+    private boolean isNumerical(String text) {
+        for (int i = 0; i < text.length(); i++) {
+            if (!Character.isDigit(text.charAt(i))) {
                 return false;
             }
         }
         return true;
     }
 
-    private void setStage(ActionEvent actionEvent){
+    private void setStage(ActionEvent actionEvent) {
         stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

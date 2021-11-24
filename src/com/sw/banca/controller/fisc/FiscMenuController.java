@@ -34,9 +34,9 @@ public class FiscMenuController {
         setClientsListView();
     }
 
-    private List<String> getClientsInfo(){
+    private List<String> getClientsInfo() {
         List<String> clientsListInfo = new ArrayList<>();
-        for(Client c: clientList) {
+        for (Client c: clientList) {
             String message = "Client " + c.getInfo();
             clientsListInfo.add(message);
             clientsListMap.put(message, c);
@@ -50,7 +50,7 @@ public class FiscMenuController {
 
     public void selectClient(MouseEvent mouseEvent) throws IOException {
         Client client = getSelectedClient(mouseEvent.getTarget().toString());
-        if(!mouseEvent.getTarget().toString().endsWith("'null'") && client != null){
+        if (!mouseEvent.getTarget().toString().endsWith("'null'") && client != null) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../../view/fisc/FiscClientStatus.fxml"));
             root = loader.load();
             FiscClientStatusController fiscClientStatusController = loader.getController();
@@ -64,7 +64,7 @@ public class FiscMenuController {
     private Client getSelectedClient(String mouseEventTarget) {
         MetDecoder metDecoder = new MetDecoder(mouseEventTarget);
         String clientKey = metDecoder.getTextAttribute();
-        if(clientKey.equals("UNEXPECTED_ERROR")){
+        if (clientKey.equals("UNEXPECTED_ERROR")) {
             return null;
         }
         return clientsListMap.get(clientKey);
@@ -75,14 +75,14 @@ public class FiscMenuController {
         setStage(actionEvent);
     }
 
-    private void setStage(ActionEvent actionEvent){
+    private void setStage(ActionEvent actionEvent) {
         stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
-    private void setStage(MouseEvent mouseEvent){
+    private void setStage(MouseEvent mouseEvent) {
         stage = (Stage)((Node) mouseEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

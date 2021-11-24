@@ -64,7 +64,7 @@ public class ClientMenuController {
         alert.setContentText("Are you sure you want to delete your EURO and RON accounts?");
 
         Optional<ButtonType> result = alert.showAndWait();
-        if(result.get() == ButtonType.OK){
+        if (result.get() == ButtonType.OK) {
             Bank.getInstance().deleteAccount(UserSession.getInstance());
             terminateSession(actionEvent);
         }
@@ -80,12 +80,12 @@ public class ClientMenuController {
         helloLabel.setText("Hello, " + id);
     }
 
-    public void setStatusLabel(String message, Color color){
+    public void setStatusLabel(String message, Color color) {
         statusLabel.setText(message);
         statusLabel.setTextFill(color);
     }
 
-    private void setStage(ActionEvent actionEvent){
+    private void setStage(ActionEvent actionEvent) {
         stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
