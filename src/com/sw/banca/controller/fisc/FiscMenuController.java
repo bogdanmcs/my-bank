@@ -1,6 +1,7 @@
 package com.sw.banca.controller.fisc;
 
 import com.sw.banca.misc.fisc.MetDecoder;
+import com.sw.banca.model.Bank;
 import com.sw.banca.model.client.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,7 +14,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.rmi.UnexpectedException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -55,6 +55,8 @@ public class FiscMenuController {
             root = loader.load();
             FiscClientStatusController fiscClientStatusController = loader.getController();
             fiscClientStatusController.setClientInfo(client);
+            List<String> clientOperations = Bank.getInstance().getClientOperations(client);
+            fiscClientStatusController.setClientOperationsLabel(clientOperations);
             setStage(mouseEvent);
         }
     }

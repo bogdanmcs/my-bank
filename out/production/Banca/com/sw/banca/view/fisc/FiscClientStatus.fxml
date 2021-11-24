@@ -41,7 +41,7 @@
             <Font size="15.0" />
          </font>
       </Button>
-      <TextArea fx:id="clientOperationsLabel" layoutX="397.0" layoutY="77.0" prefHeight="585.0" prefWidth="272.0" />
+      <TextArea fx:id="clientOperationsLabel" editable="false" layoutX="397.0" layoutY="77.0" prefHeight="585.0" prefWidth="272.0" wrapText="true" />
       <Label alignment="CENTER" layoutX="455.0" layoutY="34.0" prefHeight="35.0" prefWidth="156.0" text="Operations">
          <font>
             <Font size="24.0" />

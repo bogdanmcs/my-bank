@@ -7,14 +7,20 @@ import com.sw.banca.model.client.Client;
 import com.sw.banca.model.client.Clientable;
 import com.sw.banca.model.fisc.Fiscable;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public final class Bank implements Clientable, Fiscable {
     private boolean INIT = false;
 
     private final List<Client> clientsList = new ArrayList<>();
+
+    // FISC
     private final List<Client> trackedClientsList = new ArrayList<>();
+    private final Map<Client, List<String>> trackedClientsOperationsMap = new HashMap<>();
 
     private static Bank instance;
 
@@ -92,7 +98,7 @@ public final class Bank implements Clientable, Fiscable {
                 break;
             case RON:
                 currentBalance = currentClient.getRonBalance();
-                if(currentBalance < transaction.getTotalAmount()){
+                if(currentBalance < transaction.getTotalAmount() || currentBalance <= 1000){
                     return ServerResponse.INSUFFICIENT_FUNDS;
                 } else {
                     currentClient.setRonBalance(currentBalance - transaction.getTotalAmount());
@@ -101,7 +107,7 @@ public final class Bank implements Clientable, Fiscable {
             default:
                 return ServerResponse.UNEXPECTED_ERROR;
         }
-        return confirmOperationSuccessful();
+        return confirmOperationSuccessful(userSession, transaction);
     }
 
     @Override
@@ -111,6 +117,7 @@ public final class Bank implements Clientable, Fiscable {
             return ServerResponse.CLIENT_NOT_FOUND;
         }
         double currentBalance;
+        // !
         switch(transaction.getBalanceType()){
             case EURO:
                 currentBalance = currentClient.getEuroBalance();
@@ -123,7 +130,7 @@ public final class Bank implements Clientable, Fiscable {
             default:
                 return ServerResponse.UNEXPECTED_ERROR;
         }
-        return confirmOperationSuccessful();
+        return confirmOperationSuccessful(userSession, transaction);
     }
 
     @Override
@@ -156,6 +163,7 @@ public final class Bank implements Clientable, Fiscable {
             return ServerResponse.CLIENT_ALREADY_TRACKED;
         } else {
             trackedClientsList.add(client);
+            trackedClientsOperationsMap.put(client, new ArrayList<String>());
             return ServerResponse.OPERATION_SUCCESSFUL;
         }
     }
@@ -166,14 +174,9 @@ public final class Bank implements Clientable, Fiscable {
             return ServerResponse.CLIENT_NOT_TRACKED;
         } else {
             trackedClientsList.remove(client);
+            trackedClientsOperationsMap.remove(client);
             return ServerResponse.OPERATION_SUCCESSFUL;
         }
-    }
-
-    private ServerResponse confirmOperationSuccessful() {
-
-        notifyFisc();
-        return ServerResponse.OPERATION_SUCCESSFUL;
     }
 
     @Override
@@ -186,8 +189,42 @@ public final class Bank implements Clientable, Fiscable {
         return ServerResponse.CLIENT_NOT_TRACKED;
     }
 
-    @Override
-    public void notifyFisc() {
+    private boolean isClientTracked(UserSession userSession) {
+        for(Client c: trackedClientsList){
+            if(c.getCnp() == userSession.getCnp() && c.getPin() == userSession.getPin()){
+                return true;
+            }
+        }
+        return false;
+    }
 
+    public List<String> getClientOperations(Client client){
+        if(isClientTracked(client) == ServerResponse.CLIENT_ALREADY_TRACKED){
+            return trackedClientsOperationsMap.get(client);
+        } else {
+            return new ArrayList<String>();
+        }
+    }
+
+    private ServerResponse confirmOperationSuccessful(UserSession userSession, Transaction transaction) {
+        if(isClientTracked(userSession)){
+            notify(userSession, transaction);
+        }
+        return ServerResponse.OPERATION_SUCCESSFUL;
+    }
+
+    @Override
+    public void notify(UserSession userSession, Transaction transaction) {
+        logClientTransactionInfo(userSession, transaction);
+        String log = transaction.getTransactionDetails();
+        Client client = getCurrentClient(userSession);
+        List<String> clientOperations = trackedClientsOperationsMap.get(client);
+        clientOperations.add(log);
+        trackedClientsOperationsMap.put(client, clientOperations);
+    }
+
+    private void logClientTransactionInfo(UserSession userSession, Transaction transaction) {
+        System.out.println("Log: client = " + userSession.getCnp() + ", operation = " + transaction.getCashOperationType() +
+                ", balance = " + transaction.getBalanceType() + ", amount = " + transaction.getTotalAmount());
     }
 }

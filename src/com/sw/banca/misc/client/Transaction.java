@@ -3,6 +3,8 @@ package com.sw.banca.misc.client;
 import com.sw.banca.misc.enums.BalanceType;
 import com.sw.banca.misc.enums.CashOperationType;
 
+import java.time.LocalDateTime;
+
 public class Transaction {
     private CashOperationType cashOperationType;
     private BalanceType balanceType;
@@ -18,10 +20,6 @@ public class Transaction {
         return cashOperationType;
     }
 
-    public void setCashOperationType(CashOperationType cashOperationType) {
-        this.cashOperationType = cashOperationType;
-    }
-
     public BalanceType getBalanceType() {
         return balanceType;
     }
@@ -34,7 +32,8 @@ public class Transaction {
         return totalAmount;
     }
 
-    public void setTotalAmount(double totalAmount) {
-        this.totalAmount = totalAmount;
+    public String getTransactionDetails() {
+        return cashOperationType + " - " + balanceType + " - " +
+                totalAmount + " - " + LocalDateTime.now() + "\n";
     }
 }

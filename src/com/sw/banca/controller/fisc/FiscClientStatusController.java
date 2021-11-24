@@ -2,6 +2,7 @@ package com.sw.banca.controller.fisc;
 
 import com.sw.banca.misc.enums.ServerResponse;
 import com.sw.banca.model.Bank;
+import com.sw.banca.model.UserSession;
 import com.sw.banca.model.client.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,14 +10,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public class FiscClientStatusController {
     @FXML
@@ -79,8 +79,21 @@ public class FiscClientStatusController {
             Bank.getInstance().startClientTracking(currentClient);
             setClientStatusAsTracked();
         } else {
+            confirmUntracking();
+        }
+    }
+
+    private void confirmUntracking(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Bank");
+        alert.setHeaderText("Untrack client " + currentClient.getCnp());
+        alert.setContentText("Are you sure you want to untrack this client? All history will be deleted.");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.get() == ButtonType.OK){
             Bank.getInstance().stopClientTracking(currentClient);
             setClientStatusAsUntracked();
+            clientOperationsLabel.setText("");
         }
     }
 
@@ -94,8 +107,10 @@ public class FiscClientStatusController {
     }
 
 
-    public void setClientOperationsLabel(String clientOperation) {
-
+    public void setClientOperationsLabel(List<String> clientOperations) {
+        if(!clientOperations.isEmpty()){
+            clientOperationsLabel.setText(clientOperations.toString());
+        }
     }
 
     public void goBack(ActionEvent actionEvent) throws IOException {
