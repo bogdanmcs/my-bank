@@ -45,7 +45,22 @@ public class FiscMenuController {
     }
 
     private void setClientsListView(){
-        clientsListView.getItems().addAll(getClientsInfo());
+        clientsListView.getItems().setAll(getClientsInfo());
+    }
+
+    public void viewAllClients() {
+        List<Client> allClientsList = Bank.getInstance().getClientsList();
+        setClientsList(allClientsList);
+    }
+
+    public void viewTrackedClients() {
+        List<Client> trackedClientsList = Bank.getInstance().getTrackedClientsList();
+        setClientsList(trackedClientsList);
+    }
+
+    public void viewUntrackedClients() {
+        List<Client> untrackedClientsList = Bank.getInstance().getUntrackedClientsList();
+        setClientsList(untrackedClientsList);
     }
 
     public void selectClient(MouseEvent mouseEvent) throws IOException {

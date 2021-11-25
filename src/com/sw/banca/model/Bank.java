@@ -135,6 +135,20 @@ public final class Bank implements Clientable, Fiscable {
         return clientsList;
     }
 
+    public List<Client> getTrackedClientsList() {
+        return trackedClientsList;
+    }
+
+    public List<Client> getUntrackedClientsList() {
+        List<Client> untrackedClientsList = new ArrayList<>();
+        for (Client c: clientsList) {
+            if (isClientTracked(c) == ServerResponse.CLIENT_NOT_TRACKED) {
+                untrackedClientsList.add(c);
+            }
+        }
+        return untrackedClientsList;
+    }
+
     private Client getTrackedClient(Client client) {
         for (Client c: trackedClientsList) {
             if (c.getCnp() == client.getCnp() && c.getPin() == client.getPin()) {
