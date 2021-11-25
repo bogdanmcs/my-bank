@@ -13,14 +13,6 @@ import java.util.List;
 import java.util.Map;
 
 public final class Bank implements Clientable, Fiscable {
-    private boolean INIT = false;
-
-    private final List<Client> clientsList = new ArrayList<>();
-
-    // FISC
-    private final List<Client> trackedClientsList = new ArrayList<>();
-    private final Map<Client, List<String>> trackedClientsOperationsMap = new HashMap<>();
-
     private static Bank instance;
 
     private Bank() {}
@@ -32,12 +24,18 @@ public final class Bank implements Clientable, Fiscable {
         return instance;
     }
 
+    private boolean INIT = false;
+
+    private final List<Client> clientsList = new ArrayList<>();
+    private final List<Client> trackedClientsList = new ArrayList<>();
+    private final Map<Client, List<String>> trackedClientsOperationsMap = new HashMap<>();
+
     public void initialize() {
         if (!INIT) {
             INIT = true;
-            createAccount(new Client(100, 1000, new AccountBalance(157, 305)));
+            createAccount(new Client(100, 1000, new AccountBalance(709, 306.3)));
             createAccount(new Client(200, 2000));
-            createAccount(new Client(300, 3000));
+            createAccount(new Client(300, 3000, new AccountBalance(1890, 405)));
         } else {
             System.out.println("Bank has already been initialized!");
         }
@@ -196,10 +194,8 @@ public final class Bank implements Clientable, Fiscable {
     }
 
     private ServerResponse confirmOperation(UserSession userSession, Transaction transaction, ServerResponse serverResponse) {
-        if (serverResponse == ServerResponse.OPERATION_SUCCESSFUL) {
-            if (isClientTracked(userSession)) {
+        if (serverResponse == ServerResponse.OPERATION_SUCCESSFUL && isClientTracked(userSession)) {
                 notify(userSession, transaction);
-            }
         }
         return serverResponse;
     }

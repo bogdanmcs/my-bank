@@ -20,16 +20,8 @@ public final class UserSession {
         return cnp;
     }
 
-    public void setCnp(int cnp) {
-        this.cnp = cnp;
-    }
-
     public int getPin() {
         return pin;
-    }
-
-    public void setPin(int pin) {
-        this.pin = pin;
     }
 
     public void setCnpAndPin(int cnp, int pin) {
