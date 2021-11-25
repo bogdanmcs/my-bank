@@ -2,6 +2,7 @@ package com.sw.banca.controller.auth;
 
 import com.sw.banca.misc.client.Cnp;
 import com.sw.banca.misc.client.Pin;
+import com.sw.banca.misc.enums.ServerResponse;
 import com.sw.banca.model.Bank;
 import com.sw.banca.model.client.Client;
 import javafx.event.ActionEvent;
@@ -35,9 +36,11 @@ public class RegisterController {
 
         if (areCredentialsValid(cnp, pin)) {
             Client client = new Client(Integer.parseInt(cnp.getCnpCode()), Integer.parseInt(pin.getPinCode()));
+            ServerResponse serverResponse = Bank.getInstance().createAccount(client);
 
-            if (!doesClientAlreadyExist(client)) {
-                Bank.getInstance().createAccount(client);
+            if (serverResponse == ServerResponse.CLIENT_ALREADY_EXISTS) {
+                statusLabel.setText("Client is already registered.");
+            } else {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../../view/auth/Login.fxml"));
                 root = loader.load();
                 LoginController loginController = loader.getController();
@@ -57,15 +60,6 @@ public class RegisterController {
             statusLabel.setText("PIN is not valid. Format is XXXX, numbers only.");
         }
         return false;
-    }
-
-    private boolean doesClientAlreadyExist(Client client) {
-        if (Bank.getInstance().isRegistered(client)) {
-            statusLabel.setText("Client is already registered.");
-            return true;
-        } else {
-            return false;
-        }
     }
 
     public void login(ActionEvent actionEvent) throws IOException {

@@ -1,8 +1,8 @@
 package com.sw.banca.misc.client;
 
 public class AccountBalance {
-    private double balanceEuro;
-    private double balanceRon;
+    private final double balanceEuro;
+    private final double balanceRon;
 
     public AccountBalance(double balanceEuro, double balanceRon) {
         this.balanceEuro = balanceEuro;
@@ -13,15 +13,7 @@ public class AccountBalance {
         return balanceEuro;
     }
 
-    public void setBalanceEuro(double balanceEuro) {
-        this.balanceEuro = balanceEuro;
-    }
-
     public double getBalanceRon() {
         return balanceRon;
-    }
-
-    public void setBalanceRon(double balanceRon) {
-        this.balanceRon = balanceRon;
     }
 }

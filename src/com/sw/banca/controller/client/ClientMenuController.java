@@ -4,6 +4,7 @@ import com.sw.banca.controller.client.balanceChecker.BalanceCheckerController;
 import com.sw.banca.controller.client.cashOperation.CashOperationBalanceTypeController;
 import com.sw.banca.misc.client.AccountBalance;
 import com.sw.banca.misc.enums.CashOperationType;
+import com.sw.banca.misc.enums.ServerResponse;
 import com.sw.banca.model.Bank;
 import com.sw.banca.model.UserSession;
 import javafx.event.ActionEvent;
@@ -65,8 +66,12 @@ public class ClientMenuController {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            Bank.getInstance().deleteAccount(UserSession.getInstance());
-            terminateSession(actionEvent);
+            ServerResponse serverResponse = Bank.getInstance().deleteAccount(UserSession.getInstance());
+            if (serverResponse == ServerResponse.ACCOUNT_NOT_EMPTY) {
+                setStatusLabel("Please withdraw all cash before deleting your account.", Color.RED);
+            } else {
+                terminateSession(actionEvent);
+            }
         }
     }
 

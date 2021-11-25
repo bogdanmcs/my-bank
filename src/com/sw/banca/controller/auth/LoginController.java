@@ -4,6 +4,7 @@ import com.sw.banca.controller.client.ClientMenuController;
 import com.sw.banca.controller.fisc.FiscMenuController;
 import com.sw.banca.misc.client.Cnp;
 import com.sw.banca.misc.client.Pin;
+import com.sw.banca.misc.enums.ServerResponse;
 import com.sw.banca.model.Bank;
 import com.sw.banca.model.client.Client;
 import com.sw.banca.model.UserSession;
@@ -37,15 +38,14 @@ public class LoginController {
         Cnp cnp = new Cnp(cnpTextField.getText());
         Pin pin = new Pin(pinTextField.getText());
 
-        if (areValid(cnp, pin)) {
+        if (areCredentialsValid(cnp, pin)) {
             int cnpToInt = Integer.parseInt(cnp.getCnpCode());
             int pinToInt = Integer.parseInt(pin.getPinCode());
             Client client = new Client(cnpToInt, pinToInt);
 
             if (areCredentialsCorrect(client)) {
                 System.out.println("Log: client " + client.getCnp() + " has successfully logged in");
-                UserSession.getInstance().setCnp(cnpToInt);
-                UserSession.getInstance().setPin(pinToInt);
+                UserSession.getInstance().setCnpAndPin(cnpToInt, pinToInt);
                 loadUserMenu(actionEvent);
             }
         }
@@ -68,7 +68,7 @@ public class LoginController {
         setStage(actionEvent);
     }
 
-    private boolean areValid(Cnp cnp, Pin pin) {
+    private boolean areCredentialsValid(Cnp cnp, Pin pin) {
         if (cnp.isValid() && pin.isValid()) {
             return true;
         }
@@ -81,11 +81,12 @@ public class LoginController {
     }
 
     private boolean areCredentialsCorrect(Client client) {
-        if (Bank.getInstance().isRegistered(client)) {
-            return true;
-        } else {
+        ServerResponse serverResponse = Bank.getInstance().validateCredentials(client);
+        if (serverResponse == ServerResponse.CLIENT_NOT_FOUND) {
             setStatusLabel("Invalid credentials. Please try again.", Color.RED);
             return false;
+        } else {
+            return true;
         }
     }
 

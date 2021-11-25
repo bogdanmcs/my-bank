@@ -32,6 +32,11 @@ public final class UserSession {
         this.pin = pin;
     }
 
+    public void setCnpAndPin(int cnp, int pin) {
+        this.cnp = cnp;
+        this.pin = pin;
+    }
+
     public void clearSession() {
         cnp = -1;
         pin = -1;

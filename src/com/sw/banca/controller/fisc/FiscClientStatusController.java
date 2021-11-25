@@ -40,8 +40,8 @@ public class FiscClientStatusController {
     public void setClientInfo(Client client) {
         currentClient = client;
         setClientIdLabel(String.valueOf(client.getCnp()));
-        setClientEuroBalanceLabel(String.valueOf(client.getEuroBalance()));
-        setClientRonBalanceLabel(String.valueOf(client.getRonBalance()));
+        setClientEuroBalanceLabel(String.valueOf(client.getBalance("EURO")));
+        setClientRonBalanceLabel(String.valueOf(client.getBalance("RON")));
         ServerResponse serverResponse = Bank.getInstance().isClientTracked(client);
         if (serverResponse == ServerResponse.CLIENT_ALREADY_TRACKED) {
             setClientStatusAsTracked();
