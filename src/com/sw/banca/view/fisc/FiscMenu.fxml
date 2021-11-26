@@ -11,8 +11,8 @@
          <font>
             <Font size="20.0" />
          </font></Button>
-      <Button layoutX="199.0" layoutY="58.0" mnemonicParsing="false" onAction="#viewTrackedClients" text="tracked" />
-      <Button layoutX="267.0" layoutY="58.0" mnemonicParsing="false" onAction="#viewUntrackedClients" text="untracked" />
-      <Button layoutX="158.0" layoutY="58.0" mnemonicParsing="false" onAction="#viewAllClients" text="all" />
+      <Button fx:id="viewTrackedClientsButton" layoutX="199.0" layoutY="58.0" mnemonicParsing="false" onAction="#viewTrackedClients" text="tracked" />
+      <Button fx:id="viewUntrackedClientsButton" layoutX="267.0" layoutY="58.0" mnemonicParsing="false" onAction="#viewUntrackedClients" text="untracked" />
+      <Button fx:id="viewAllClientsButton" layoutX="158.0" layoutY="58.0" mnemonicParsing="false" onAction="#viewAllClients" text="all" />
    </children>
 </AnchorPane>

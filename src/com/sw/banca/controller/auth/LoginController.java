@@ -4,6 +4,7 @@ import com.sw.banca.controller.client.ClientMenuController;
 import com.sw.banca.controller.fisc.FiscMenuController;
 import com.sw.banca.misc.client.Cnp;
 import com.sw.banca.misc.client.Pin;
+import com.sw.banca.misc.enums.FiscClientsView;
 import com.sw.banca.misc.enums.ServerResponse;
 import com.sw.banca.model.Bank;
 import com.sw.banca.model.client.Client;
@@ -56,7 +57,7 @@ public class LoginController {
         root = loader.load();
         FiscMenuController fiscMenuController = loader.getController();
         List<Client> clientsList = Bank.getInstance().getClientsList();
-        fiscMenuController.setClientsList(clientsList);
+        fiscMenuController.setClientsList(clientsList, FiscClientsView.ALL);
         setStage(actionEvent);
     }
 

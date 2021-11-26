@@ -1,6 +1,6 @@
 package com.sw.banca.controller.fisc;
 
-import com.sw.banca.misc.enums.ServerResponse;
+import com.sw.banca.misc.enums.FiscClientsView;
 import com.sw.banca.model.Bank;
 import com.sw.banca.model.client.Client;
 import javafx.event.ActionEvent;
@@ -36,18 +36,20 @@ public class FiscClientStatusController {
     private Parent root;
 
     private Client currentClient;
+    private FiscClientsView fiscClientsView;
 
-    public void setClientInfo(Client client) {
+    public void setClientInfo(Client client, FiscClientsView fiscClientsView) {
         currentClient = client;
+        this.fiscClientsView = fiscClientsView;
+        setLabels(client);
+    }
+
+    private void setLabels(Client client) {
         setClientIdLabel(String.valueOf(client.getCnp()));
         setClientEuroBalanceLabel(String.valueOf(client.getBalance("EURO")));
         setClientRonBalanceLabel(String.valueOf(client.getBalance("RON")));
-        ServerResponse serverResponse = Bank.getInstance().isClientTracked(client);
-        if (serverResponse == ServerResponse.CLIENT_ALREADY_TRACKED) {
-            setClientStatusAsTracked();
-        } else {
-            setClientStatusAsUntracked();
-        }
+        setClientStatusButtonAndLabel();
+        setClientOperationsLabel(client.getOperationsList());
     }
 
     private void setClientIdLabel(String clientId) {
@@ -62,6 +64,14 @@ public class FiscClientStatusController {
         clientRonBalanceLabel.setText(clientRonBalance);
     }
 
+    private void setClientStatusButtonAndLabel() {
+        if (currentClient.isTracked()) {
+            setClientStatusAsTracked();
+        } else {
+            setClientStatusAsUntracked();
+        }
+    }
+
     private void setClientStatusAsTracked() {
         setClientStatusLabel("Client is currently tracked.", Color.GREEN);
         setClientStatusButton("Untrack");
@@ -73,8 +83,7 @@ public class FiscClientStatusController {
     }
 
     public void setClientStatus() {
-        ServerResponse serverResponse = Bank.getInstance().isClientTracked(currentClient);
-        if (serverResponse == ServerResponse.CLIENT_NOT_TRACKED) {
+        if (!currentClient.isTracked()) {
             Bank.getInstance().startClientTracking(currentClient);
             setClientStatusAsTracked();
         } else {
@@ -113,12 +122,10 @@ public class FiscClientStatusController {
     }
 
     public void goBack(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader;
-        loader = new FXMLLoader(getClass().getResource("../../view/fisc/FiscMenu.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../../view/fisc/FiscMenu.fxml"));
         root = loader.load();
         FiscMenuController fiscMenuController = loader.getController();
-        List<Client> clientsList = Bank.getInstance().getClientsList();
-        fiscMenuController.setClientsList(clientsList);
+        fiscMenuController.setFiscClientsView(fiscClientsView);
         setStage(actionEvent);
     }
 

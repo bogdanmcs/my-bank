@@ -18,5 +18,6 @@
         <Label layoutX="218.0" layoutY="219.0" prefHeight="23.0" prefWidth="38.0" text="CNP" />
         <Label layoutX="218.0" layoutY="322.0" text="PIN" />
         <Label fx:id="statusLabel" alignment="CENTER" layoutX="218.0" layoutY="158.0" prefHeight="41.0" prefWidth="244.0" textFill="#f24f4f" wrapText="true" />
+      <Label alignment="CENTER" layoutX="137.0" layoutY="131.0" prefHeight="54.0" prefWidth="407.0" text="Note: in order to create an account, please create an account." />
     </children>
 </AnchorPane>

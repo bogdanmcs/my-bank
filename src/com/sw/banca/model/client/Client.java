@@ -4,14 +4,19 @@ import com.sw.banca.misc.client.AccountBalance;
 import com.sw.banca.misc.client.Transaction;
 import com.sw.banca.misc.enums.BalanceType;
 import com.sw.banca.misc.enums.ServerResponse;
+import com.sw.banca.misc.enums.TrackStatus;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Client {
     private final int cnp;
     private final int pin;
     private final Map<String, Double> accountBalancesMap = new HashMap<>();
+    private TrackStatus trackStatus;
+    private List<String> operationsList = new ArrayList<>();
 
     public Client(int cnp, int pin) {
         this.cnp = cnp;
@@ -19,6 +24,7 @@ public class Client {
         for (BalanceType balanceType: BalanceType.values()) {
             accountBalancesMap.put(balanceType.toString(), 0.0);
         }
+        trackStatus = TrackStatus.NOT_TRACKED;
     }
 
     public Client(int cnp, int pin, AccountBalance accountBalance) {
@@ -26,6 +32,7 @@ public class Client {
         this.pin = pin;
         accountBalancesMap.put("EURO", accountBalance.getBalanceEuro());
         accountBalancesMap.put("RON", accountBalance.getBalanceRon());
+        trackStatus = TrackStatus.NOT_TRACKED;
     }
 
     public int getCnp() {
@@ -38,6 +45,29 @@ public class Client {
 
     public double getBalance(String currency) {
         return accountBalancesMap.get(currency);
+    }
+
+    public List<String> getOperationsList() {
+        return operationsList;
+    }
+
+    public void addOperation(String operation) {
+        operationsList.add(operation);
+    }
+
+    public void clearOperationsList() {
+        operationsList = new ArrayList<>();
+    }
+
+    public boolean isTracked() {
+        return (trackStatus == TrackStatus.TRACKED);
+    }
+
+    public void setTrackStatus(TrackStatus trackStatus) {
+        this.trackStatus = trackStatus;
+        if (trackStatus == TrackStatus.NOT_TRACKED) {
+            clearOperationsList();
+        }
     }
 
     public ServerResponse setBalanceAfterWithdrawal(Transaction transaction) {
