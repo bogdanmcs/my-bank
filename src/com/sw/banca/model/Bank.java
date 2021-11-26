@@ -6,6 +6,7 @@ import com.sw.banca.misc.enums.ServerResponse;
 import com.sw.banca.misc.enums.TrackStatus;
 import com.sw.banca.model.client.Client;
 import com.sw.banca.model.client.Clientable;
+import com.sw.banca.model.fisc.Fisc;
 import com.sw.banca.model.fisc.Fiscable;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public final class Bank implements Clientable, Fiscable {
             createAccount(new Client(100, 1000, new AccountBalance(709, 306.3)));
             createAccount(new Client(200, 2000));
             createAccount(new Client(300, 3000, new AccountBalance(1890, 405)));
+            Fisc.getInstance().initialize(clientsList);
         } else {
             System.out.println("Bank has already been initialized!");
         }
@@ -95,6 +97,7 @@ public final class Bank implements Clientable, Fiscable {
         if (currentClient == null) {
             return ServerResponse.CLIENT_NOT_FOUND;
         } else if (currentClient.hasNoBalance()) {
+            notifyFisc(currentClient);
             clientsList.remove(currentClient);
             return ServerResponse.OPERATION_SUCCESSFUL;
         } else {
@@ -160,16 +163,19 @@ public final class Bank implements Clientable, Fiscable {
 
     private ServerResponse confirmOperation(Client client, Transaction transaction, ServerResponse serverResponse) {
         if (serverResponse == ServerResponse.OPERATION_SUCCESSFUL && client.isTracked()) {
-                notify(client, transaction);
+            notifyFisc(client, transaction);
         }
         return serverResponse;
     }
 
 
-    private void notify(Client client, Transaction transaction) {
+    private void notifyFisc(Client client, Transaction transaction) {
         logClientTransactionInfo(client, transaction);
-        String log = transaction.getTransactionDetails();
-        client.addOperation(log);
+        Fisc.getInstance().notifyTransaction(client, transaction);
+    }
+
+    private void notifyFisc(Client client) {
+        Fisc.getInstance().notifyDeletion(client);
     }
 
     private void logClientTransactionInfo(Client client, Transaction transaction) {

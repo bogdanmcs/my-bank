@@ -35,7 +35,7 @@ public class LoginController {
     private Scene scene;
     private Parent root;
 
-    public void login(ActionEvent actionEvent) throws IOException {
+    public void loginClient(ActionEvent actionEvent) throws IOException {
         Cnp cnp = new Cnp(cnpTextField.getText());
         Pin pin = new Pin(pinTextField.getText());
 

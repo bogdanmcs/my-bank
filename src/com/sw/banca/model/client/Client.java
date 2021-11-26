@@ -6,9 +6,7 @@ import com.sw.banca.misc.enums.BalanceType;
 import com.sw.banca.misc.enums.ServerResponse;
 import com.sw.banca.misc.enums.TrackStatus;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Client {
@@ -16,7 +14,6 @@ public class Client {
     private final int pin;
     private final Map<String, Double> accountBalancesMap = new HashMap<>();
     private TrackStatus trackStatus;
-    private List<String> operationsList = new ArrayList<>();
 
     public Client(int cnp, int pin) {
         this.cnp = cnp;
@@ -47,27 +44,12 @@ public class Client {
         return accountBalancesMap.get(currency);
     }
 
-    public List<String> getOperationsList() {
-        return operationsList;
-    }
-
-    public void addOperation(String operation) {
-        operationsList.add(operation);
-    }
-
-    public void clearOperationsList() {
-        operationsList = new ArrayList<>();
-    }
-
     public boolean isTracked() {
         return (trackStatus == TrackStatus.TRACKED);
     }
 
     public void setTrackStatus(TrackStatus trackStatus) {
         this.trackStatus = trackStatus;
-        if (trackStatus == TrackStatus.NOT_TRACKED) {
-            clearOperationsList();
-        }
     }
 
     public ServerResponse setBalanceAfterWithdrawal(Transaction transaction) {
@@ -97,6 +79,10 @@ public class Client {
             }
         }
         return true;
+    }
+
+    public boolean isSameClient(Client client) {
+        return (this.getCnp() == client.getCnp() && this.getPin() == client.getPin());
     }
 
     public String getInfo() {

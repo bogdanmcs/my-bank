@@ -1,8 +1,8 @@
 package com.sw.banca.controller.fisc;
 
 import com.sw.banca.misc.enums.FiscClientsView;
-import com.sw.banca.model.Bank;
 import com.sw.banca.model.client.Client;
+import com.sw.banca.model.fisc.Fisc;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -49,7 +49,9 @@ public class FiscClientStatusController {
         setClientEuroBalanceLabel(String.valueOf(client.getBalance("EURO")));
         setClientRonBalanceLabel(String.valueOf(client.getBalance("RON")));
         setClientStatusButtonAndLabel();
-        setClientOperationsLabel(client.getOperationsList());
+        if (client.isTracked()) {
+            setClientOperationsLabel(Fisc.getInstance().getClientOperations(client));
+        }
     }
 
     private void setClientIdLabel(String clientId) {
@@ -84,7 +86,7 @@ public class FiscClientStatusController {
 
     public void setClientStatus() {
         if (!currentClient.isTracked()) {
-            Bank.getInstance().startClientTracking(currentClient);
+            Fisc.getInstance().startClientTracking(currentClient);
             setClientStatusAsTracked();
         } else {
             confirmUntracking();
@@ -99,7 +101,7 @@ public class FiscClientStatusController {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            Bank.getInstance().stopClientTracking(currentClient);
+            Fisc.getInstance().stopClientTracking(currentClient);
             setClientStatusAsUntracked();
             clientOperationsLabel.setText("");
         }

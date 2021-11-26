@@ -2,8 +2,8 @@ package com.sw.banca.controller.fisc;
 
 import com.sw.banca.misc.enums.FiscClientsView;
 import com.sw.banca.misc.fisc.MetDecoder;
-import com.sw.banca.model.Bank;
 import com.sw.banca.model.client.Client;
+import com.sw.banca.model.fisc.Fisc;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -70,14 +70,12 @@ public class FiscMenuController {
     }
 
     public void viewAllClients() {
-//        setViewClientsButtons(FiscClientsView.ALL);
-        List<Client> clientsList = Bank.getInstance().getClientsList();
+        List<Client> clientsList = Fisc.getInstance().getClientsList();
         setClientsList(clientsList, FiscClientsView.ALL);
     }
 
     public void viewTrackedClients() {
-//        setViewClientsButtons(FiscClientsView.TRACKED);
-        List<Client> clientsList = Bank.getInstance().getClientsList();
+        List<Client> clientsList = Fisc.getInstance().getClientsList();
         List<Client> trackedClientsList = clientsList.stream()
                 .filter(Client::isTracked)
                 .collect(Collectors.toList());
@@ -85,8 +83,7 @@ public class FiscMenuController {
     }
 
     public void viewUntrackedClients() {
-//        setViewClientsButtons(FiscClientsView.UNTRACKED);
-        List<Client> clientsList = Bank.getInstance().getClientsList();
+        List<Client> clientsList = Fisc.getInstance().getClientsList();
         List<Client> untrackedClientsList = clientsList.stream()
                 .filter(client -> !client.isTracked())
                 .collect(Collectors.toList());

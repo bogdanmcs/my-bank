@@ -1,6 +1,7 @@
 package com.sw.banca;
 
 import com.sw.banca.model.Bank;
+import com.sw.banca.model.fisc.Fisc;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
