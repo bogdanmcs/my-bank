@@ -13,7 +13,7 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <Button fx:id="loginButton" layoutX="282.0" layoutY="450.0" mnemonicParsing="false" onAction="#login" prefHeight="41.0" prefWidth="116.0" text="Log in" />
+      <Button fx:id="loginButton" layoutX="282.0" layoutY="450.0" mnemonicParsing="false" onAction="#loginClient" prefHeight="41.0" prefWidth="116.0" text="Log in" />
       <Button fx:id="goToRegisterButton" layoutX="490.0" layoutY="645.0" mnemonicParsing="false" onAction="#register" prefHeight="41.0" prefWidth="196.0" text="Don't have an account?" underline="true" />
       <Label layoutX="218.0" layoutY="219.0" prefHeight="23.0" prefWidth="38.0" text="CNP" />
       <Label layoutX="218.0" layoutY="322.0" text="PIN" />
